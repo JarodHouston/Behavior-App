@@ -7,6 +7,9 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import SignUpPage from "./components/SignUpPage";
 import HomePage from "./components/Home";
+import AccountCreated from "./components/AccountCreated";
+import Survey1 from "./components/survey_pages/Survey1";
+import Survey2 from "./components/survey_pages/Survey2";
 
 ////////////////////////////////////////////////////////////////
 
@@ -22,6 +25,9 @@ export default function App({ navigation }) {
       >
         <Stack.Screen name="SignUp" component={SignUpPage} />
         <Stack.Screen name="Home" component={HomePage} />
+        <Stack.Screen name="AccountCreated" component={AccountCreated} />
+        <Stack.Screen name="Survey1" component={Survey1} />
+        <Stack.Screen name="Survey2" component={Survey2} />
       </Stack.Navigator>
     </NavigationContainer>
     // <SafeAreaView style={styles.container}>

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { StyleSheet, View, SafeAreaView, Text, TextInput } from "react-native";
-import { Switch, Button } from "react-native";
+import { Switch, Pressable } from "react-native";
 
 export default function SignUpPage({ navigation }) {
   const [email, setEmail] = useState("");
@@ -10,8 +10,8 @@ export default function SignUpPage({ navigation }) {
   const [toggleCheckBox, setToggleCheckBox] = useState(false);
 
   return (
-    <SafeAreaView>
-      <Text>Hello I am a sign up page!</Text>
+    <SafeAreaView style={styles.signUpContainer}>
+      <View style={styles.image}></View>
       <View style={inputStyles.inputContainer}>
         <View>
           <Text style={inputStyles.inputLabel}>Email Address</Text>
@@ -64,17 +64,39 @@ export default function SignUpPage({ navigation }) {
           .
         </Text>
       </View>
-      <Button title="home" onPress={() => navigation.navigate("Home")} />
+      <Pressable
+        style={[styles.button, { marginTop: 30 }]}
+        onPress={() => navigation.navigate("AccountCreated")}
+      >
+        <Text style={styles.buttonText}>Create account</Text>
+      </Pressable>
+      <Text
+        style={{
+          marginLeft: "auto",
+          marginRight: "auto",
+          marginTop: 42,
+          fontSize: 12,
+        }}
+      >
+        Already have an account? -{" "}
+        <Text style={{ fontWeight: "bold" }}>Sign In</Text>
+      </Text>
+      <Pressable
+        style={[styles.button, { marginTop: 14 }]}
+        onPress={() => navigation.navigate("Home")}
+      >
+        <Text style={styles.buttonText}>Sign In</Text>
+      </Pressable>
     </SafeAreaView>
   );
 }
 
 const inputStyles = StyleSheet.create({
   inputContainer: {
-    marginTop: 50,
+    marginTop: 30,
   },
   input: {
-    height: 64,
+    height: 62,
     margin: 28,
     marginTop: 16,
     marginBottom: 8,
@@ -96,10 +118,38 @@ const inputStyles = StyleSheet.create({
 });
 
 const styles = StyleSheet.create({
+  signUpContainer: {
+    height: "100%",
+    //backgroundColor: "white",
+  },
+  image: {
+    width: 250,
+    height: 146,
+    backgroundColor: "#AFB1B6",
+    marginLeft: "auto",
+    marginRight: "auto",
+    marginTop: 44,
+    borderWidth: 1,
+    borderRadius: 7,
+  },
   toggleContainer: {
     flexDirection: "row",
     margin: 16,
     marginLeft: 60,
     marginRight: 100,
+  },
+  button: {
+    backgroundColor: "#979797",
+    borderRadius: 7,
+    width: 304,
+    height: 54,
+    marginLeft: "auto",
+    marginRight: "auto",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  buttonText: {
+    color: "white",
+    fontSize: 17,
   },
 });
