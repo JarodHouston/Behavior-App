@@ -10,6 +10,8 @@ import HomePage from "./components/Home";
 import AccountCreated from "./components/AccountCreated";
 import Survey1 from "./components/survey_pages/Survey1";
 import Survey2 from "./components/survey_pages/Survey2";
+import Survey3 from "./components/survey_pages/Survey3";
+import Survey4 from "./components/survey_pages/Survey4";
 
 ////////////////////////////////////////////////////////////////
 
@@ -28,17 +30,10 @@ export default function App({ navigation }) {
         <Stack.Screen name="AccountCreated" component={AccountCreated} />
         <Stack.Screen name="Survey1" component={Survey1} />
         <Stack.Screen name="Survey2" component={Survey2} />
+        <Stack.Screen name="Survey3" component={Survey3} />
+        <Stack.Screen name="Survey4" component={Survey4} />
       </Stack.Navigator>
     </NavigationContainer>
-    // <SafeAreaView style={styles.container}>
-    //   <Text>Jarod is amazing! Woah</Text>
-    //   {/* <TextInput style={styles.input} value="Username" /> */}
-    //   <StatusBar style="auto" />
-    //   <Button
-    //     title="Go to New Page"
-    //     onPress={() => navigation.navigate("SignUp")}
-    //   />
-    // </SafeAreaView>
   );
 }
 
