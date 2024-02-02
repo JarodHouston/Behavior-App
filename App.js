@@ -12,6 +12,7 @@ import Survey1 from "./components/survey_pages/Survey1";
 import Survey2 from "./components/survey_pages/Survey2";
 import Survey3 from "./components/survey_pages/Survey3";
 import Survey4 from "./components/survey_pages/Survey4";
+import ActivityPage from "./components/ActivityPage";
 
 ////////////////////////////////////////////////////////////////
 
@@ -32,6 +33,7 @@ export default function App({ navigation }) {
         <Stack.Screen name="Survey2" component={Survey2} />
         <Stack.Screen name="Survey3" component={Survey3} />
         <Stack.Screen name="Survey4" component={Survey4} />
+        <Stack.Screen name="Activity" component={ActivityPage} />
       </Stack.Navigator>
     </NavigationContainer>
   );

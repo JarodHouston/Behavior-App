@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import { useState } from "react";
 
-const Navbar = () => {
+const Navbar = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <SafeAreaView
@@ -23,7 +23,9 @@ const Navbar = () => {
           marginRight: 23,
         }}
       >
-        <Text>Menu</Text>
+        <Pressable onPress={() => navigation.navigate("SignUp")}>
+          <Text>Menu</Text>
+        </Pressable>
         <Text>Settings</Text>
       </SafeAreaView>
     </View>

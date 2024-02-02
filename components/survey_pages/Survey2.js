@@ -41,6 +41,14 @@ export default function Survey2({ navigation }) {
       id: 6,
       hobbieName: "Fitness & Sports",
     },
+    {
+      id: 7,
+      hobbieName: "Crafting",
+    },
+    {
+      id: 8,
+      hobbieName: "Live Events",
+    },
   ];
   return (
     <SafeAreaView style={{ height: "100%" }}>
