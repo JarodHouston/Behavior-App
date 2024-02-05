@@ -11,6 +11,7 @@ import {
 import { useState } from "react";
 
 const Navbar = ({ navigation }) => {
+  const [menuDropdown, setMenuDropdown] = useState(false);
   return (
     <View style={styles.container}>
       <SafeAreaView
@@ -23,8 +24,19 @@ const Navbar = ({ navigation }) => {
           marginRight: 23,
         }}
       >
-        <Pressable onPress={() => navigation.navigate("SignUp")}>
+        <Pressable onPress={() => setMenuDropdown(!menuDropdown)}>
           <Text>Menu</Text>
+          {menuDropdown && (
+            <View style={{ display: "flex", flexDirection: "row", gap: 20 }}>
+              <Text onPress={() => navigation.navigate("Home")}>Home</Text>
+              <Text onPress={() => navigation.navigate("Profile")}>
+                Profile
+              </Text>
+              <Text onPress={() => navigation.navigate("SignUp")}>
+                Sign Out
+              </Text>
+            </View>
+          )}
         </Pressable>
         <Text>Settings</Text>
       </SafeAreaView>
