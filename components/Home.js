@@ -19,11 +19,52 @@ export default function Home({ navigation }) {
   const [confirmationPopup, setConfirmationPopup] = useState(false);
   const [ticketValue, setTicketValue] = useState("1");
 
-  const eventTitle = "Griffith Observatory Yoga";
-  const date = "Saturday, February 3";
-  const time = "10 am - 12 pm PST";
-  const eventDescription =
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam";
+  const [registered1, setRegistered1] = useState(false);
+  const [registered2, setRegistered2] = useState(false);
+  const [selectedId, setSelectedId] = useState(0);
+
+  const events = [
+    {
+      id: 0,
+      eventTitle: "Griffith Observatory Yoga",
+      date: "Saturday, February 3",
+      time: "10 am - 12 pm PST",
+      price: 1,
+      eventDescription:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
+      registered: registered1,
+    },
+    {
+      id: 1,
+      eventTitle: "Echo Park Yoga",
+      date: "Saturday, February 3",
+      time: "10 am - 12 pm PST",
+      price: 1,
+      eventDescription:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
+      registered: registered2,
+    },
+    {
+      id: 2,
+      eventTitle: "Silverlake Yoga",
+      date: "Saturday, February 3",
+      time: "8 am - 10 am PST",
+      price: 2,
+      eventDescription:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
+      registered: false,
+    },
+    {
+      id: 3,
+      eventTitle: "Puppy Yoga",
+      date: "Saturday, February 3",
+      time: "9 am - 10 am PST",
+      price: 3,
+      eventDescription:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
+      registered: false,
+    },
+  ];
 
   const similarEvents = [
     {
@@ -51,6 +92,16 @@ export default function Home({ navigation }) {
       id: 8,
     },
   ];
+
+  function selectActivity(id) {
+    if (!activitySelected) {
+      setActivitySelected(true);
+      setSelectedId(id);
+    } else {
+      setActivitySelected(false);
+      setSelectedId(0);
+    }
+  }
 
   return (
     <View>
@@ -94,10 +145,16 @@ export default function Home({ navigation }) {
                   //marginTop: 40,
                 }}
               >
-                <Text style={{ fontSize: 22 }}>{eventTitle}</Text>
+                <Text style={{ fontSize: 22 }}>
+                  {events.at(selectedId).eventTitle}
+                </Text>
                 <View style={{ alignItems: "center" }}>
-                  <Text style={{ fontSize: 14 }}>{date}</Text>
-                  <Text style={{ fontSize: 14 }}>{time}</Text>
+                  <Text style={{ fontSize: 14 }}>
+                    {events.at(selectedId).date}
+                  </Text>
+                  <Text style={{ fontSize: 14 }}>
+                    {events.at(selectedId).time}
+                  </Text>
                 </View>
               </View>
               <View style={popUpStyles.eventDetails}>
@@ -105,7 +162,7 @@ export default function Home({ navigation }) {
                   Event Details
                 </Text>
                 <Text style={{ fontSize: 14, lineHeight: 20, marginTop: 7 }}>
-                  {eventDescription}
+                  {events.at(selectedId).eventDescription}
                 </Text>
               </View>
               <View style={popUpStyles.registration}>
@@ -161,7 +218,7 @@ export default function Home({ navigation }) {
                 X
               </Text>
               <Text style={{ fontSize: 20, textAlign: "center" }}>
-                {eventTitle}
+                {events.at(ev.id).eventTitle}
               </Text>
               <View
                 style={{
@@ -170,8 +227,8 @@ export default function Home({ navigation }) {
                   marginTop: 12,
                 }}
               >
-                <Text style={{ fontSize: 13 }}>{date}</Text>
-                <Text style={{ fontSize: 13 }}>{time}</Text>
+                <Text style={{ fontSize: 13 }}>{events.at(ev.id).date}</Text>
+                <Text style={{ fontSize: 13 }}>{events.at(ev.id).time}</Text>
               </View>
               <Text
                 style={{
@@ -207,64 +264,79 @@ export default function Home({ navigation }) {
       )}
       <Navbar navigation={navigation} />
       <ScrollView>
-        <TouchableOpacity
-          style={activitySelected ? styles.eventCardSelected : styles.eventCard}
-          onPress={() => setActivitySelected(!activitySelected)}
-          activeOpacity={1}
-        >
-          <View style={styles.cardInfo}>
-            {!activitySelected && (
-              <View style={styles.vendorTag}>
-                <Text>Verified Vendor</Text>
-              </View>
-            )}
-            {activitySelected && (
-              <View style={eventStyles.authorContainer}>
-                <View
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    gap: 10,
-                  }}
-                >
-                  <View
-                    style={{
-                      width: 29,
-                      height: 29,
-                      borderColor: "#AFB1B6",
-                      borderWidth: 1,
-                      borderRadius: 50,
-                    }}
-                  ></View>
-                  <View
-                    style={{ height: "100%", justifyContent: "space-between" }}
+        {events.map((ev) => (
+          <View key={ev.id}>
+            {(!activitySelected || ev.id === selectedId) && (
+              <TouchableOpacity
+                style={
+                  activitySelected ? styles.eventCardSelected : styles.eventCard
+                }
+                onPress={() => selectActivity(ev.id)}
+                activeOpacity={1}
+              >
+                <View style={styles.cardInfo}>
+                  {!activitySelected && (
+                    <View style={styles.vendorTag}>
+                      <Text>Verified Vendor</Text>
+                    </View>
+                  )}
+                  {activitySelected && (
+                    <View style={eventStyles.authorContainer}>
+                      <View
+                        style={{
+                          display: "flex",
+                          flexDirection: "row",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          gap: 10,
+                        }}
+                      >
+                        <View
+                          style={{
+                            width: 29,
+                            height: 29,
+                            borderColor: "#AFB1B6",
+                            borderWidth: 1,
+                            borderRadius: 50,
+                          }}
+                        ></View>
+                        <View
+                          style={{
+                            height: "100%",
+                            justifyContent: "space-between",
+                          }}
+                        >
+                          <Text>By Outdoorsy Outdoorsman</Text>
+                          <Text>301 Followers</Text>
+                        </View>
+                      </View>
+                      <Pressable style={eventStyles.followButton}>
+                        <Text style={{ color: "white" }}>Follow</Text>
+                      </Pressable>
+                    </View>
+                  )}
+                  <Text style={{ fontSize: 24 }}>
+                    {events.at(ev.id).eventTitle}
+                  </Text>
+                  <Text style={{ fontSize: 15, width: 150, marginTop: 12 }}>
+                    {events.at(ev.id).date} {events.at(ev.id).time}
+                  </Text>
+                  <Text style={{ fontSize: 15 }}>
+                    $<Text style={{ opacity: 0.2 }}>$$$</Text>
+                  </Text>
+                  <Pressable
+                    style={styles.signUpButton}
+                    onPress={() => setRegistartionPopup(true)}
                   >
-                    <Text>By Outdoorsy Outdoorsman</Text>
-                    <Text>301 Followers</Text>
-                  </View>
+                    <Text style={{ fontSize: 12, color: "#838282" }}>
+                      Sign Up
+                    </Text>
+                  </Pressable>
                 </View>
-                <Pressable style={eventStyles.followButton}>
-                  <Text style={{ color: "white" }}>Follow</Text>
-                </Pressable>
-              </View>
+              </TouchableOpacity>
             )}
-            <Text style={{ fontSize: 24 }}>{eventTitle}</Text>
-            <Text style={{ fontSize: 15, width: 150, marginTop: 12 }}>
-              {date} {time}
-            </Text>
-            <Text style={{ fontSize: 15 }}>
-              $<Text style={{ opacity: 0.2 }}>$$$</Text>
-            </Text>
-            <Pressable
-              style={styles.signUpButton}
-              onPress={() => setRegistartionPopup(true)}
-            >
-              <Text style={{ fontSize: 12, color: "#838282" }}>Sign Up</Text>
-            </Pressable>
           </View>
-        </TouchableOpacity>
+        ))}
         {activitySelected && (
           <View>
             <View style={eventStyles.eventInfoContainer}>
@@ -272,7 +344,7 @@ export default function Home({ navigation }) {
                 Event Details
               </Text>
               <Text style={{ fontSize: 16, marginTop: 16, lineHeight: 22 }}>
-                {eventDescription}
+                {events.at(selectedId).eventDescription}
               </Text>
             </View>
             <View style={eventStyles.tagContainer}>
@@ -311,15 +383,6 @@ export default function Home({ navigation }) {
           </View>
         )}
       </ScrollView>
-      {!activitySelected && (
-        <View>
-          <View style={styles.lowerContainer}>
-            <View style={styles.lowerButton}></View>
-            <View style={styles.lowerButton}></View>
-            <View style={styles.lowerButton}></View>
-          </View>
-        </View>
-      )}
     </View>
   );
 }
@@ -327,11 +390,11 @@ export default function Home({ navigation }) {
 const styles = StyleSheet.create({
   eventCard: {
     backgroundColor: "#E8E8E8",
-    height: 597,
+    height: 500,
     justifyContent: "flex-end",
     borderBottomLeftRadius: 15,
     borderBottomRightRadius: 15,
-    marginBottom: 10,
+    marginBottom: 20,
     paddingBottom: 50,
     shadowColor: "black",
     shadowOffset: { width: 2, height: 3 },
@@ -356,7 +419,7 @@ const styles = StyleSheet.create({
     height: 38,
     justifyContent: "center",
     alignItems: "center",
-    top: -330,
+    top: "-138%",
     marginLeft: "auto",
     borderTopLeftRadius: 10,
     borderBottomLeftRadius: 10,
