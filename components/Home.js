@@ -103,6 +103,11 @@ export default function Home({ navigation }) {
     }
   }
 
+  function registerForEvent(id) {
+    setRegistartionPopup(true);
+    setSelectedId(id);
+  }
+
   return (
     <View>
       {(registrationPopup || confirmationPopup) && (
@@ -116,7 +121,7 @@ export default function Home({ navigation }) {
               justifyContent: "center",
               alignItems: "center",
             },
-            activitySelected ? { height: "89%" } : { height: "104.6%" },
+            activitySelected ? { height: "89%" } : { height: "89.6%" },
           ]}
         >
           <View
@@ -218,7 +223,7 @@ export default function Home({ navigation }) {
                 X
               </Text>
               <Text style={{ fontSize: 20, textAlign: "center" }}>
-                {events.at(ev.id).eventTitle}
+                {events.at(selectedId).eventTitle}
               </Text>
               <View
                 style={{
@@ -227,8 +232,12 @@ export default function Home({ navigation }) {
                   marginTop: 12,
                 }}
               >
-                <Text style={{ fontSize: 13 }}>{events.at(ev.id).date}</Text>
-                <Text style={{ fontSize: 13 }}>{events.at(ev.id).time}</Text>
+                <Text style={{ fontSize: 13 }}>
+                  {events.at(selectedId).date}
+                </Text>
+                <Text style={{ fontSize: 13 }}>
+                  {events.at(selectedId).time}
+                </Text>
               </View>
               <Text
                 style={{
@@ -267,76 +276,93 @@ export default function Home({ navigation }) {
         {events.map((ev) => (
           <View key={ev.id}>
             {(!activitySelected || ev.id === selectedId) && (
-              <TouchableOpacity
-                style={
-                  activitySelected ? styles.eventCardSelected : styles.eventCard
-                }
-                onPress={() => selectActivity(ev.id)}
-                activeOpacity={1}
-              >
-                <View style={styles.cardInfo}>
-                  {!activitySelected && (
-                    <View style={styles.vendorTag}>
-                      <Text>Verified Vendor</Text>
-                    </View>
-                  )}
-                  {activitySelected && (
-                    <View style={eventStyles.authorContainer}>
-                      <View
-                        style={{
-                          display: "flex",
-                          flexDirection: "row",
-                          justifyContent: "center",
-                          alignItems: "center",
-                          gap: 10,
-                        }}
-                      >
+              <View>
+                <TouchableOpacity
+                  style={
+                    activitySelected
+                      ? styles.eventCardSelected
+                      : styles.eventCard
+                  }
+                  onPress={() => selectActivity(ev.id)}
+                  activeOpacity={1}
+                >
+                  <View style={styles.cardInfo}>
+                    {!activitySelected && (
+                      <View style={styles.vendorTag}>
+                        <Text>Verified Vendor</Text>
+                      </View>
+                    )}
+                    {activitySelected && (
+                      <View style={eventStyles.authorContainer}>
                         <View
                           style={{
-                            width: 29,
-                            height: 29,
-                            borderColor: "#AFB1B6",
-                            borderWidth: 1,
-                            borderRadius: 50,
-                          }}
-                        ></View>
-                        <View
-                          style={{
-                            height: "100%",
-                            justifyContent: "space-between",
+                            display: "flex",
+                            flexDirection: "row",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            gap: 10,
                           }}
                         >
-                          <Text>By Outdoorsy Outdoorsman</Text>
-                          <Text>301 Followers</Text>
+                          <View
+                            style={{
+                              width: 29,
+                              height: 29,
+                              borderColor: "#AFB1B6",
+                              borderWidth: 1,
+                              borderRadius: 50,
+                            }}
+                          ></View>
+                          <View
+                            style={{
+                              height: "100%",
+                              justifyContent: "space-between",
+                            }}
+                          >
+                            <Text>By Outdoorsy Outdoorsman</Text>
+                            <Text>301 Followers</Text>
+                          </View>
                         </View>
+                        <Pressable style={eventStyles.followButton}>
+                          <Text style={{ color: "white" }}>Follow</Text>
+                        </Pressable>
                       </View>
-                      <Pressable style={eventStyles.followButton}>
-                        <Text style={{ color: "white" }}>Follow</Text>
-                      </Pressable>
-                    </View>
-                  )}
-                  <Text style={{ fontSize: 24 }}>
-                    {events.at(ev.id).eventTitle}
-                  </Text>
-                  <Text style={{ fontSize: 15, width: 150, marginTop: 12 }}>
-                    {events.at(ev.id).date} {events.at(ev.id).time}
-                  </Text>
-                  <Text style={{ fontSize: 15 }}>
-                    $<Text style={{ opacity: 0.2 }}>$$$</Text>
-                  </Text>
-                  <Pressable
-                    style={styles.signUpButton}
-                    onPress={() => setRegistartionPopup(true)}
-                  >
-                    <Text style={{ fontSize: 12, color: "#838282" }}>
-                      Sign Up
+                    )}
+                    <Text style={{ fontSize: 24 }}>
+                      {events.at(ev.id).eventTitle}
                     </Text>
-                  </Pressable>
-                </View>
-              </TouchableOpacity>
+                    <Text style={{ fontSize: 15, width: 150, marginTop: 12 }}>
+                      {events.at(ev.id).date} {events.at(ev.id).time}
+                    </Text>
+                    <Text style={{ fontSize: 15 }}>
+                      $<Text style={{ opacity: 0.2 }}>$$$</Text>
+                    </Text>
+                    <Pressable
+                      style={styles.signUpButton}
+                      onPress={() => registerForEvent(ev.id)}
+                    >
+                      <Text style={{ fontSize: 12, color: "#838282" }}>
+                        Sign Up
+                      </Text>
+                    </Pressable>
+                  </View>
+                </TouchableOpacity>
+                {!activitySelected && (
+                  <View style={styles.registeredFriends}>
+                    <View style={{ flexDirection: "row", gap: -10 }}>
+                      <View style={[styles.friendPic, { zIndex: 3 }]}></View>
+                      <View style={[styles.friendPic, { zIndex: 2 }]}></View>
+                      <View style={[styles.friendPic, { zIndex: 1 }]}></View>
+                    </View>
+                    <Text style={{ fontSize: 12 }}>
+                      Jane Doe and 5 others are registered
+                    </Text>
+                  </View>
+                )}
+              </View>
             )}
           </View>
         ))}
+        {!activitySelected && <View style={{ marginBottom: 110 }}></View>}
         {activitySelected && (
           <View>
             <View style={eventStyles.eventInfoContainer}>
@@ -361,6 +387,30 @@ export default function Home({ navigation }) {
                 <Text>Tag</Text>
               </View>
             </View>
+            <View
+              style={[
+                eventStyles.eventInfoContainer,
+                eventStyles.venueInfoContainer,
+              ]}
+            >
+              <Text style={{ fontSize: 20, textDecorationLine: "underline" }}>
+                Venue Details
+              </Text>
+              <Text style={{ fontSize: 16, marginTop: 16, lineHeight: 22 }}>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                enim ad minim veniam
+              </Text>
+              <Text
+                style={{
+                  fontSize: 16,
+                  textDecorationLine: "underline",
+                  marginTop: 30,
+                }}
+              >
+                View in Google Maps
+              </Text>
+            </View>
             <View>
               <Text
                 style={{
@@ -370,7 +420,7 @@ export default function Home({ navigation }) {
                   marginLeft: 40,
                 }}
               >
-                More Like This
+                Explore Similar Events
               </Text>
               <View style={eventStyles.similarEventContainer}>
                 {similarEvents.map((item) => (
@@ -394,11 +444,10 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
     borderBottomLeftRadius: 15,
     borderBottomRightRadius: 15,
-    marginBottom: 20,
     paddingBottom: 50,
     shadowColor: "black",
     shadowOffset: { width: 2, height: 3 },
-    shadowOpacity: 0.2,
+    shadowOpacity: 0.1,
   },
   eventCardSelected: {
     backgroundColor: "#E8E8E8",
@@ -449,6 +498,30 @@ const styles = StyleSheet.create({
     borderColor: "#838282",
     borderWidth: 2,
   },
+  registeredFriends: {
+    height: 62,
+    zIndex: -1,
+    backgroundColor: "#EFEFF0",
+    marginBottom: 20,
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 12,
+    borderBottomLeftRadius: 8,
+    borderBottomRightRadius: 8,
+    shadowColor: "black",
+    shadowOffset: { width: 2, height: 3 },
+    shadowOpacity: 0.05,
+  },
+  friendPic: {
+    width: 25,
+    height: 25,
+    backgroundColor: "#E8E8E8",
+    borderColor: "#838282",
+    borderWidth: 1,
+    borderRadius: 50,
+  },
 });
 
 const eventStyles = StyleSheet.create({
@@ -465,6 +538,12 @@ const eventStyles = StyleSheet.create({
     borderWidth: 2,
     borderRadius: 8,
     paddingBottom: 6,
+  },
+  venueInfoContainer: {
+    height: "auto",
+    marginTop: 16,
+    padding: 24,
+    paddingBottom: 24,
   },
   tagContainer: {
     width: "100%",
@@ -494,7 +573,7 @@ const eventStyles = StyleSheet.create({
   },
   similarEvent: {
     backgroundColor: "#E8E8E8",
-    width: 186,
+    width: 182,
     height: 152,
     borderColor: "#AFB1B6",
     borderWidth: 2,
