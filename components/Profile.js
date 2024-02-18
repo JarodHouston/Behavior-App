@@ -7,6 +7,7 @@ import {
   TextInput,
   Pressable,
   FlatList,
+  TouchableOpacity,
 } from "react-native";
 import { SelectList } from "react-native-dropdown-select-list";
 import { useState } from "react";
@@ -214,16 +215,22 @@ export default function Profile({ navigation }) {
               <View style={mainStyles.friendContainer}>
                 {friends.map((friend) => {
                   return (
-                    <View key={friend.id} style={mainStyles.friendCard}>
-                      <View style={mainStyles.friendProfile}></View>
-                      <View style={{ justifyContent: "center" }}>
-                        <Text>{friend.name}</Text>
-                        <View style={{ flexDirection: "row", gap: 5 }}>
-                          <Text>Activity</Text>
-                          <Text>Expert</Text>
+                    <TouchableOpacity
+                      onPress={() => navigation.navigate("FriendProfile")}
+                      activeOpacity={1}
+                      key={friend.id}
+                    >
+                      <View style={mainStyles.friendCard}>
+                        <View style={mainStyles.friendProfile}></View>
+                        <View style={{ justifyContent: "center" }}>
+                          <Text>{friend.name}</Text>
+                          <View style={{ flexDirection: "row", gap: 5 }}>
+                            <Text>Activity</Text>
+                            <Text>Expert</Text>
+                          </View>
                         </View>
                       </View>
-                    </View>
+                    </TouchableOpacity>
                   );
                 })}
               </View>
@@ -263,18 +270,23 @@ export default function Profile({ navigation }) {
                 horizontal
                 showsHorizontalScrollIndicator={false}
                 renderItem={({ item }) => (
-                  <View>
-                    <View style={mainStyles.badge}>
-                      <View style={mainStyles.badgeTitle}>
-                        <Text style={{ fontSize: 15, color: "white" }}>
-                          Tag
-                        </Text>
+                  <TouchableOpacity
+                    onPress={() => navigation.navigate("FriendProfile")}
+                    activeOpacity={1}
+                  >
+                    <View>
+                      <View style={mainStyles.badge}>
+                        <View style={mainStyles.badgeTitle}>
+                          <Text style={{ fontSize: 15, color: "white" }}>
+                            Tag
+                          </Text>
+                        </View>
                       </View>
+                      <Text style={{ marginTop: 12, textAlign: "center" }}>
+                        Person
+                      </Text>
                     </View>
-                    <Text style={{ marginTop: 12, textAlign: "center" }}>
-                      Person
-                    </Text>
-                  </View>
+                  </TouchableOpacity>
                 )}
                 keyExtractor={(item) => item.id}
               />
@@ -287,12 +299,6 @@ export default function Profile({ navigation }) {
               }}
             >
               <Text style={mainStyles.sectionTitle}>My Friends</Text>
-              {/* <SelectList
-                setSelected={(val) => setFriendFilterOption(val)}
-                data={friendFilters}
-                save="value"
-                boxStyles={friendStyles.filter}
-              /> */}
               <View style={friendStyles.filter}>
                 <Text style={{ fontSize: 12, color: "#61646B" }}>
                   Filter by
@@ -302,16 +308,21 @@ export default function Profile({ navigation }) {
             <View style={[mainStyles.friendContainer, { marginTop: 26 }]}>
               {friends.map((friend) => {
                 return (
-                  <View key={friend.id} style={mainStyles.friendCard}>
-                    <View style={mainStyles.friendProfile}></View>
-                    <View style={{ justifyContent: "center" }}>
-                      <Text>{friend.name}</Text>
-                      <View style={{ flexDirection: "row", gap: 5 }}>
-                        <Text>Activity</Text>
-                        <Text>Expert</Text>
+                  <TouchableOpacity
+                    onPress={() => navigation.navigate("FriendProfile")}
+                    activeOpacity={1}
+                  >
+                    <View key={friend.id} style={mainStyles.friendCard}>
+                      <View style={mainStyles.friendProfile}></View>
+                      <View style={{ justifyContent: "center" }}>
+                        <Text>{friend.name}</Text>
+                        <View style={{ flexDirection: "row", gap: 5 }}>
+                          <Text>Activity</Text>
+                          <Text>Expert</Text>
+                        </View>
                       </View>
                     </View>
-                  </View>
+                  </TouchableOpacity>
                 );
               })}
             </View>
@@ -324,16 +335,21 @@ export default function Profile({ navigation }) {
               <View style={[mainStyles.friendContainer, { marginTop: 26 }]}>
                 {recommendedFriends.map((friend) => {
                   return (
-                    <View key={friend.id} style={mainStyles.friendCard}>
-                      <View style={mainStyles.friendProfile}></View>
-                      <View style={{ justifyContent: "center" }}>
-                        <Text>{friend.name}</Text>
-                        <View style={{ flexDirection: "row", gap: 5 }}>
-                          <Text>Activity</Text>
-                          <Text>Expert</Text>
+                    <TouchableOpacity
+                      onPress={() => navigation.navigate("FriendProfile")}
+                      activeOpacity={1}
+                    >
+                      <View key={friend.id} style={mainStyles.friendCard}>
+                        <View style={mainStyles.friendProfile}></View>
+                        <View style={{ justifyContent: "center" }}>
+                          <Text>{friend.name}</Text>
+                          <View style={{ flexDirection: "row", gap: 5 }}>
+                            <Text>Activity</Text>
+                            <Text>Expert</Text>
+                          </View>
                         </View>
                       </View>
-                    </View>
+                    </TouchableOpacity>
                   );
                 })}
               </View>
