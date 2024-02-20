@@ -83,7 +83,7 @@ export default function SignUpPage({ navigation }) {
       </Text>
       <Pressable
         style={[styles.button, { marginTop: 14 }]}
-        onPress={() => navigation.navigate("Home")}
+        onPress={() => navigation.navigate("Home", { displayType: "default" })}
       >
         <Text style={styles.buttonText}>Sign In</Text>
       </Pressable>
