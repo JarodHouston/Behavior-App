@@ -13,7 +13,9 @@ import { useState } from "react";
 
 import Navbar from "./items/Navbar";
 
-export default function Home({ navigation }) {
+export default function Home({ navigation, route }) {
+  const { displayType } = route.params ?? { displayType: "default" };
+
   const [activitySelected, setActivitySelected] = useState(false);
   const [registrationPopup, setRegistartionPopup] = useState(false);
   const [confirmationPopup, setConfirmationPopup] = useState(false);
@@ -32,7 +34,8 @@ export default function Home({ navigation }) {
       price: 1,
       eventDescription:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
-      registered: registered1,
+      registered: true,
+      passed: false,
     },
     {
       id: 1,
@@ -42,7 +45,8 @@ export default function Home({ navigation }) {
       price: 1,
       eventDescription:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
-      registered: registered2,
+      registered: true,
+      passed: false,
     },
     {
       id: 2,
@@ -53,6 +57,7 @@ export default function Home({ navigation }) {
       eventDescription:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
       registered: false,
+      passed: true,
     },
     {
       id: 3,
@@ -63,6 +68,7 @@ export default function Home({ navigation }) {
       eventDescription:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
       registered: false,
+      passed: true,
     },
   ];
 
@@ -275,18 +281,20 @@ export default function Home({ navigation }) {
       <ScrollView>
         {events.map((ev) => (
           <View key={ev.id}>
-            {(!activitySelected || ev.id === selectedId) && (
-              <View>
-                <TouchableOpacity
-                  style={
-                    activitySelected
-                      ? styles.eventCardSelected
-                      : styles.eventCard
-                  }
-                  onPress={() => selectActivity(ev.id)}
-                  activeOpacity={1}
-                >
-                  <View style={styles.cardInfo}>
+            {(!activitySelected || ev.id === selectedId) &&
+              (displayType === "default" ||
+                (displayType === "history" && ev.passed) ||
+                (displayType === "registered" && ev.registered)) && (
+                <View>
+                  <TouchableOpacity
+                    style={
+                      activitySelected
+                        ? styles.eventCardSelected
+                        : styles.eventCard
+                    }
+                    onPress={() => selectActivity(ev.id)}
+                    activeOpacity={1}
+                  >
                     {!activitySelected && (
                       <View style={styles.vendorTag}>
                         <Text>Verified Vendor</Text>
@@ -314,12 +322,14 @@ export default function Home({ navigation }) {
                           ></View>
                           <View
                             style={{
-                              height: "100%",
+                              height: "88%",
                               justifyContent: "space-between",
                             }}
                           >
-                            <Text>By Outdoorsy Outdoorsman</Text>
-                            <Text>301 Followers</Text>
+                            <Text style={{ fontSize: 13 }}>
+                              By Outdoorsy Outdoorsman
+                            </Text>
+                            <Text style={{ fontSize: 13 }}>301 Followers</Text>
                           </View>
                         </View>
                         <Pressable style={eventStyles.followButton}>
@@ -327,39 +337,56 @@ export default function Home({ navigation }) {
                         </Pressable>
                       </View>
                     )}
-                    <Text style={{ fontSize: 24 }}>
-                      {events.at(ev.id).eventTitle}
-                    </Text>
-                    <Text style={{ fontSize: 15, width: 150, marginTop: 12 }}>
-                      {events.at(ev.id).date} {events.at(ev.id).time}
-                    </Text>
-                    <Text style={{ fontSize: 15 }}>
-                      $<Text style={{ opacity: 0.2 }}>$$$</Text>
-                    </Text>
-                    <Pressable
-                      style={styles.signUpButton}
-                      onPress={() => registerForEvent(ev.id)}
-                    >
-                      <Text style={{ fontSize: 12, color: "#838282" }}>
-                        Sign Up
+                    <View style={styles.cardInfo}>
+                      <Text style={{ fontSize: 24 }}>
+                        {events.at(ev.id).eventTitle}
                       </Text>
-                    </Pressable>
-                  </View>
-                </TouchableOpacity>
-                {!activitySelected && (
-                  <View style={styles.registeredFriends}>
-                    <View style={{ flexDirection: "row", gap: -10 }}>
-                      <View style={[styles.friendPic, { zIndex: 3 }]}></View>
-                      <View style={[styles.friendPic, { zIndex: 2 }]}></View>
-                      <View style={[styles.friendPic, { zIndex: 1 }]}></View>
+                      <Text style={{ fontSize: 15, width: 150, marginTop: 12 }}>
+                        {events.at(ev.id).date} {events.at(ev.id).time}
+                      </Text>
+                      <Text style={{ fontSize: 15 }}>
+                        $<Text style={{ opacity: 0.2 }}>$$$</Text>
+                      </Text>
+                      {displayType !== "history" && (
+                        <Pressable
+                          style={styles.signUpButton}
+                          onPress={() => registerForEvent(ev.id)}
+                        >
+                          <Text style={{ fontSize: 12, color: "#838282" }}>
+                            {displayType === "default" && <Text>Sign Up</Text>}
+                            {displayType === "registered" && (
+                              <Text>Registered</Text>
+                            )}
+                          </Text>
+                        </Pressable>
+                      )}
+                      {displayType === "registered" && (
+                        <Text
+                          style={{
+                            fontSize: 16,
+                            marginTop: 16,
+                            textDecorationLine: "underline",
+                          }}
+                        >
+                          Modify your registration
+                        </Text>
+                      )}
                     </View>
-                    <Text style={{ fontSize: 12 }}>
-                      Jane Doe and 5 others are registered
-                    </Text>
-                  </View>
-                )}
-              </View>
-            )}
+                  </TouchableOpacity>
+                  {!activitySelected && (
+                    <View style={styles.registeredFriends}>
+                      <View style={{ flexDirection: "row", gap: -10 }}>
+                        <View style={[styles.friendPic, { zIndex: 3 }]}></View>
+                        <View style={[styles.friendPic, { zIndex: 2 }]}></View>
+                        <View style={[styles.friendPic, { zIndex: 1 }]}></View>
+                      </View>
+                      <Text style={{ fontSize: 12 }}>
+                        Jane Doe and 5 others are registered
+                      </Text>
+                    </View>
+                  )}
+                </View>
+              )}
           </View>
         ))}
         {!activitySelected && <View style={{ marginBottom: 110 }}></View>}
@@ -444,7 +471,7 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
     borderBottomLeftRadius: 15,
     borderBottomRightRadius: 15,
-    paddingBottom: 50,
+    paddingBottom: 38,
     shadowColor: "black",
     shadowOffset: { width: 2, height: 3 },
     shadowOpacity: 0.1,
@@ -460,7 +487,7 @@ const styles = StyleSheet.create({
   },
   cardInfo: {
     marginTop: "auto",
-    marginLeft: 50,
+    marginLeft: 44,
   },
   vendorTag: {
     backgroundColor: "#D9D9D9",
@@ -468,7 +495,8 @@ const styles = StyleSheet.create({
     height: 38,
     justifyContent: "center",
     alignItems: "center",
-    top: "-138%",
+    position: "relative",
+    top: 34,
     marginLeft: "auto",
     borderTopLeftRadius: 10,
     borderBottomLeftRadius: 10,
@@ -584,10 +612,14 @@ const eventStyles = StyleSheet.create({
     paddingRight: 16,
   },
   authorContainer: {
-    width: "100%",
+    width: "88%",
     height: 44,
-    top: -200,
-    left: -25,
+    position: "relative",
+    top: 30,
+    marginLeft: "auto",
+    marginRight: "auto",
+    // top: -200,
+    // left: -25,
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",

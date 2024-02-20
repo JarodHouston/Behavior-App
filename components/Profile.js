@@ -195,7 +195,12 @@ export default function Profile({ navigation }) {
                   );
                 })}
               </View>
-              <Text style={mainStyles.sectionEndText}>
+              <Text
+                style={mainStyles.sectionEndText}
+                onPress={() =>
+                  navigation.navigate("Home", { displayType: "registered" })
+                }
+              >
                 View your activity list
               </Text>
               <Text style={mainStyles.sectionTitle}>Past Activities</Text>
@@ -208,7 +213,12 @@ export default function Profile({ navigation }) {
                   );
                 })}
               </View>
-              <Text style={mainStyles.sectionEndText}>
+              <Text
+                style={mainStyles.sectionEndText}
+                onPress={() =>
+                  navigation.navigate("Home", { displayType: "history" })
+                }
+              >
                 View your activity history
               </Text>
               <Text style={mainStyles.sectionTitle}>My Friends</Text>
