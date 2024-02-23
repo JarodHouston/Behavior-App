@@ -10,13 +10,37 @@ import {
 } from "react-native";
 import { useState } from "react";
 
-export default function Survey3({ navigation }) {
-  const [numActivities, setNumActivities] = useState("2");
+export default function Survey4({ navigation }) {
+  const [numActivities, setNumActivities] = useState(2);
   const buttonPadding = 5;
+
+  const handleInputChange = (input) => {
+    if (typeof parseInt(input, 10) === "number" && input > 0) {
+      setNumActivities(parseInt(input, 10));
+    }
+  };
+
   return (
     <SafeAreaView style={{ height: "100%" }}>
-      <Text style={{ textAlign: "center", padding: 20 }}>Progress Bar</Text>
+      <View>
+        <Text
+          style={{ position: "absolute", top: 20, left: 30, zIndex: 3 }}
+          onPress={() => navigation.navigate("ActivityPreferences")}
+        >
+          back
+        </Text>
+        <Text style={{ textAlign: "center", padding: 20 }}>Progress Bar</Text>
+      </View>
       <View style={styles.container}>
+        <Text
+          style={{
+            fontSize: 24,
+            textAlign: "center",
+            marginBottom: 28,
+          }}
+        >
+          One last step!
+        </Text>
         <Text
           style={{
             fontSize: 24,
@@ -32,12 +56,12 @@ export default function Survey3({ navigation }) {
             color: "#AFB1B6",
             fontSize: 12,
             textAlign: "center",
-            marginTop: 60,
+            marginTop: 40,
           }}
         >
           Input number of activities
         </Text>
-        <Text style={{ fontSize: 20, textAlign: "center", marginTop: 36 }}>
+        <Text style={{ fontSize: 20, textAlign: "center", marginTop: 22 }}>
           I would like to try
         </Text>
         <View
@@ -52,20 +76,23 @@ export default function Survey3({ navigation }) {
         >
           <Text
             style={{ paddingLeft: buttonPadding, paddingRight: buttonPadding }}
-            onPress={() => setNumActivities(numActivities - 1)}
+            onPress={() => handleInputChange(numActivities - 1)}
           >
             -
           </Text>
           <TextInput
             style={styles.input}
-            onChangeText={(value) => setNumActivities(value)}
-            placeholder="2"
-            //keyboardType="numeric"
-            value={numActivities}
+            onChangeText={(value) => handleInputChange(value)}
+            keyboardType="numeric"
+            value={
+              Number.isNaN(numActivities)
+                ? setNumActivities(0)
+                : numActivities.toString()
+            }
           />
           <Text
             style={{ paddingLeft: buttonPadding, paddingRight: buttonPadding }}
-            onPress={() => setNumActivities(numActivities + 1)}
+            onPress={() => handleInputChange(numActivities + 1)}
           >
             +
           </Text>
@@ -75,7 +102,7 @@ export default function Survey3({ navigation }) {
       </View>
       <Pressable
         style={styles.button}
-        onPress={() => navigation.navigate("Survey4")}
+        onPress={() => navigation.navigate("Home")}
       >
         <Text style={{ color: "white", fontSize: 17 }}>Continue</Text>
       </Pressable>

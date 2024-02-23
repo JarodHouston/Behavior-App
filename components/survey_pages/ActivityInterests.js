@@ -16,43 +16,108 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 }
 
 export default function Survey2({ navigation }) {
-  const hobbies = [
+  const [hobbies, setHobbies] = useState([
     {
       id: 1,
       hobbieName: "Yoga",
+      selected: false,
     },
     {
       id: 2,
       hobbieName: "Hiking",
+      selected: false,
     },
     {
       id: 3,
       hobbieName: "Movies",
+      selected: false,
     },
     {
       id: 4,
       hobbieName: "Eating & Drinking",
+      selected: false,
     },
     {
       id: 5,
       hobbieName: "Crafting",
+      selected: false,
     },
     {
       id: 6,
       hobbieName: "Fitness & Sports",
+      selected: false,
     },
     {
       id: 7,
       hobbieName: "Crafting",
+      selected: false,
     },
     {
       id: 8,
       hobbieName: "Live Events",
+      selected: false,
     },
-  ];
+  ]);
+  const handlePress = (id) => {
+    setHobbies((prevHobbies) => {
+      return prevHobbies.map((hobby) =>
+        hobby.id === id ? { ...hobby, selected: !hobby.selected } : hobby
+      );
+    });
+  };
+  // let hobbies = [
+  //   {
+  //     id: 1,
+  //     hobbieName: "Yoga",
+  //     selected: false,
+  //   },
+  //   {
+  //     id: 2,
+  //     hobbieName: "Hiking",
+  //     selected: false,
+  //   },
+  //   {
+  //     id: 3,
+  //     hobbieName: "Movies",
+  //     selected: false,
+  //   },
+  //   {
+  //     id: 4,
+  //     hobbieName: "Eating & Drinking",
+  //     selected: false,
+  //   },
+  //   {
+  //     id: 5,
+  //     hobbieName: "Crafting",
+  //     selected: false,
+  //   },
+  //   {
+  //     id: 6,
+  //     hobbieName: "Fitness & Sports",
+  //     selected: false,
+  //   },
+  //   {
+  //     id: 7,
+  //     hobbieName: "Crafting",
+  //     selected: false,
+  //   },
+  //   {
+  //     id: 8,
+  //     hobbieName: "Live Events",
+  //     selected: false,
+  //   },
+  // ];
   return (
     <SafeAreaView style={{ height: "100%" }}>
-      <Text style={{ textAlign: "center", padding: 20 }}>Progress Bar</Text>
+      <View>
+        <Text
+          style={{ position: "absolute", top: 20, left: 30, zIndex: 3 }}
+          onPress={() => navigation.navigate("ActivityPreferences")}
+        >
+          back
+        </Text>
+        <Text style={{ textAlign: "center", padding: 20 }}>Progress Bar</Text>
+      </View>
       <Text style={{ textAlign: "center", fontSize: 24 }}>
         What types of activities are most interesting to you?
       </Text>
@@ -73,23 +138,25 @@ export default function Survey2({ navigation }) {
         numColumns={2}
         style={styles.hobbyContainer}
         renderItem={({ item }) => (
-          <View style={styles.hobbyCard}>
+          <Pressable
+            style={[
+              styles.hobbyCard,
+              item.selected ? { borderColor: "black", borderWidth: 2.3 } : {},
+            ]}
+            onPress={() => handlePress(item.id)}
+          >
             <View style={styles.hobbyTitle}>
               <Text style={{ color: "white", fontSize: 15 }}>
                 {item.hobbieName}
               </Text>
             </View>
-          </View>
+          </Pressable>
         )}
         keyExtractor={(item) => item.id}
       />
-      {/* <View style={styles.hobbyCard}></View>
-      <View style={[styles.hobbyCard, { flex: 3 }]}></View>
-      <View style={styles.hobbyCard}></View>
-      <View style={styles.hobbyCard}></View> */}
       <Pressable
         style={styles.button}
-        onPress={() => navigation.navigate("Survey3")}
+        onPress={() => navigation.navigate("NumberActivities")}
       >
         <Text style={{ color: "white", fontSize: 17 }}>Continue</Text>
       </Pressable>
@@ -105,7 +172,7 @@ const styles = StyleSheet.create({
     height: 54,
     marginLeft: "auto",
     marginRight: "auto",
-    marginTop: "auto",
+    marginTop: 20,
     marginBottom: 20,
     alignItems: "center",
     justifyContent: "center",
