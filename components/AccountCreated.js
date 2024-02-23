@@ -31,7 +31,7 @@ export default function AccountCreated({ navigation }) {
       <View>
         <Pressable
           style={styles.button}
-          onPress={() => navigation.navigate("Survey1")}
+          onPress={() => navigation.navigate("GeneralPreferences")}
         >
           <Text style={{ color: "white", fontSize: 17 }}>Continue</Text>
         </Pressable>
