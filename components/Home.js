@@ -17,9 +17,13 @@ export default function Home({ navigation, route }) {
   const { displayType } = route.params ?? { displayType: "default" };
 
   const [activitySelected, setActivitySelected] = useState(false);
+  const [ticketValue, setTicketValue] = useState(1);
+
   const [registrationPopup, setRegistartionPopup] = useState(false);
   const [confirmationPopup, setConfirmationPopup] = useState(false);
-  const [ticketValue, setTicketValue] = useState("1");
+  const [modifyPopup, setModifyPopup] = useState(false);
+  const [attendedEventPopup, setAttendedEventPopup] = useState(false);
+  const [missedEventPopup, setMissedEventPopup] = useState(false);
 
   const [registered1, setRegistered1] = useState(false);
   const [registered2, setRegistered2] = useState(false);
@@ -99,8 +103,28 @@ export default function Home({ navigation, route }) {
     },
   ];
 
+  const reasonsForMissing = [
+    {
+      id: 1,
+    },
+    {
+      id: 2,
+    },
+    {
+      id: 3,
+    },
+    {
+      id: 4,
+    },
+  ];
+
   function selectActivity(id) {
     if (!activitySelected) {
+      if (displayType === "history" && id === 2) {
+        setAttendedEventPopup(true);
+      } else if (displayType === "history" && id === 3) {
+        setMissedEventPopup(true);
+      }
       setActivitySelected(true);
       setSelectedId(id);
     } else {
@@ -112,11 +136,22 @@ export default function Home({ navigation, route }) {
   function registerForEvent(id) {
     setRegistartionPopup(true);
     setSelectedId(id);
+    setTicketValue(1);
   }
+
+  const updateNumberOfTickets = (input) => {
+    if (typeof parseInt(input, 10) === "number" && input > 0) {
+      setTicketValue(parseInt(input, 10));
+    }
+  };
 
   return (
     <View>
-      {(registrationPopup || confirmationPopup) && (
+      {(registrationPopup ||
+        confirmationPopup ||
+        modifyPopup ||
+        attendedEventPopup ||
+        missedEventPopup) && (
         <View
           style={[
             {
@@ -198,15 +233,22 @@ export default function Home({ navigation, route }) {
                     gap: 13,
                   }}
                 >
-                  <Text>-</Text>
+                  <Text onPress={() => updateNumberOfTickets(ticketValue - 1)}>
+                    -
+                  </Text>
                   <TextInput
                     style={popUpStyles.ticketInput}
-                    onChangeText={(value) => setTicketValue(value)}
-                    placeholder="1"
-                    //keyboardType="numeric"
-                    value={ticketValue}
+                    onChangeText={(value) => updateNumberOfTickets(value)}
+                    keyboardType="numeric"
+                    value={
+                      Number.isNaN(ticketValue)
+                        ? setTicketValue(0)
+                        : ticketValue.toString()
+                    }
                   />
-                  <Text>+</Text>
+                  <Text onPress={() => updateNumberOfTickets(ticketValue + 1)}>
+                    +
+                  </Text>
                 </View>
               </View>
               <Pressable
@@ -264,6 +306,12 @@ export default function Home({ navigation, route }) {
                   textDecorationLine: "underline",
                   color: "#19191B",
                 }}
+                onPress={() => {
+                  if (!activitySelected) {
+                    selectActivity(events.at(selectedId).id);
+                  }
+                  setConfirmationPopup(false);
+                }}
               >
                 See Event Details
               </Text>
@@ -272,6 +320,260 @@ export default function Home({ navigation, route }) {
                 onPress={() => setConfirmationPopup(false)}
               >
                 <Text style={{ fontSize: 17, color: "white" }}>Done</Text>
+              </Pressable>
+            </View>
+          )}
+          {modifyPopup && (
+            <View style={popUpStyles.modifyRegistration}>
+              <Text
+                style={popUpStyles.closeButton}
+                onPress={() => setModifyPopup(false)}
+              >
+                X
+              </Text>
+              <Text
+                style={{
+                  fontSize: 30,
+                  fontWeight: "bold",
+                  width: "90%",
+                  textAlign: "center",
+                  marginTop: 46,
+                }}
+              >
+                You are registered for this event
+              </Text>
+              <Text
+                style={{ fontSize: 20, textAlign: "center", marginTop: 20 }}
+              >
+                {events.at(selectedId).eventTitle}
+              </Text>
+              <View
+                style={{
+                  justifyContent: "center",
+                  alignItems: "center",
+                  marginTop: 10,
+                }}
+              >
+                <Text style={{ fontSize: 13 }}>
+                  {events.at(selectedId).date}
+                </Text>
+                <Text style={{ fontSize: 13 }}>
+                  {events.at(selectedId).time}
+                </Text>
+              </View>
+              <View style={[popUpStyles.eventDetails, { height: 200 }]}>
+                <Text style={{ fontSize: 16, textDecorationLine: "underline" }}>
+                  Event Details
+                </Text>
+                <Text style={{ fontSize: 14, lineHeight: 20, marginTop: 7 }}>
+                  {events.at(selectedId).eventDescription}
+                </Text>
+                <Text
+                  style={{
+                    textAlign: "center",
+                    textDecorationLine: "underline",
+                    marginTop: 16,
+                  }}
+                >
+                  View full event details
+                </Text>
+              </View>
+              <Text
+                style={{
+                  fontSize: 16,
+                  textDecorationLine: "underline",
+                  marginTop: 34,
+                }}
+              >
+                Adjust ticket quantity
+              </Text>
+              <Pressable
+                style={popUpStyles.confirmButton}
+                onPress={() => setModifyPopup(false)}
+              >
+                <Text style={{ fontSize: 17, color: "white" }}>
+                  Cancel your registration
+                </Text>
+              </Pressable>
+            </View>
+          )}
+          {attendedEventPopup && (
+            <View style={popUpStyles.attendedEvent}>
+              <Text
+                style={popUpStyles.closeButton}
+                onPress={() => setAttendedEventPopup(false)}
+              >
+                X
+              </Text>
+              <Text
+                style={{
+                  fontSize: 30,
+                  fontWeight: "bold",
+                  textAlign: "center",
+                  marginTop: 46,
+                }}
+              >
+                How was your experience?
+              </Text>
+              <Text
+                style={{ fontSize: 20, textAlign: "center", marginTop: 20 }}
+              >
+                {events.at(selectedId).eventTitle}
+              </Text>
+              <View
+                style={{
+                  justifyContent: "center",
+                  alignItems: "center",
+                  marginTop: 10,
+                }}
+              >
+                <Text style={{ fontSize: 13 }}>
+                  {events.at(selectedId).date}
+                </Text>
+                <Text style={{ fontSize: 13 }}>
+                  {events.at(selectedId).time}
+                </Text>
+              </View>
+              <View
+                style={{
+                  marginTop: 30,
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Text style={{ fontSize: 16, fontWeight: "bold" }}>
+                  Rate this event
+                </Text>
+                <View
+                  style={{
+                    backgroundColor: "#AFB1B6",
+                    width: 42,
+                    height: 42,
+                    borderRadius: 50,
+                    marginTop: 22,
+                  }}
+                ></View>
+              </View>
+              <View style={{ width: "82%", marginTop: 36 }}>
+                <Text
+                  style={{
+                    fontSize: 16,
+                    fontWeight: "bold",
+                    textAlign: "left",
+                  }}
+                >
+                  Leave a review
+                </Text>
+                <View style={[popUpStyles.eventDetails, { height: 140 }]}>
+                  <Text style={{ fontSize: 16, lineHeight: 22 }}>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                    do eiusmod tempor incididunt ut labore et dolore magna
+                    aliqua.
+                  </Text>
+                </View>
+                <View
+                  style={[
+                    eventStyles.tagContainer,
+                    {
+                      marginLeft: 0,
+                      width: "100%",
+                      gap: 3,
+                      justifyContent: "space-between",
+                    },
+                  ]}
+                >
+                  <View
+                    style={[eventStyles.tag, { backgroundColor: "#8C8C8C" }]}
+                  >
+                    <Text>Tag</Text>
+                  </View>
+                  <View
+                    style={[eventStyles.tag, { backgroundColor: "#8C8C8C" }]}
+                  >
+                    <Text>Tag</Text>
+                  </View>
+                  <View style={eventStyles.tag}>
+                    <Text>Tag</Text>
+                  </View>
+                  <View style={eventStyles.tag}>
+                    <Text>Tag</Text>
+                  </View>
+                </View>
+              </View>
+              <Text
+                style={{
+                  fontSize: 14,
+                  textDecorationLine: "underline",
+                  marginTop: 12,
+                }}
+                onPress={() => {
+                  setAttendedEventPopup(false);
+                  setMissedEventPopup(true);
+                }}
+              >
+                I didn't go
+              </Text>
+              <Pressable
+                style={[popUpStyles.confirmButton, { marginTop: "auto" }]}
+                onPress={() => setAttendedEventPopup(false)}
+              >
+                <Text style={{ fontSize: 15, color: "white" }}>Submit</Text>
+              </Pressable>
+            </View>
+          )}
+          {missedEventPopup && (
+            <View style={popUpStyles.missedEvent}>
+              <Text
+                style={popUpStyles.closeButton}
+                onPress={() => setMissedEventPopup(false)}
+              >
+                X
+              </Text>
+              <Text
+                style={{
+                  fontSize: 30,
+                  fontWeight: "bold",
+                  width: "80%",
+                  textAlign: "center",
+                  marginTop: 42,
+                }}
+              >
+                Tell us why you didn't go
+              </Text>
+              <Text
+                style={{ fontSize: 20, textAlign: "center", marginTop: 20 }}
+              >
+                {events.at(selectedId).eventTitle}
+              </Text>
+              <View
+                style={{
+                  justifyContent: "center",
+                  alignItems: "center",
+                  marginTop: 10,
+                }}
+              >
+                <Text style={{ fontSize: 13 }}>
+                  {events.at(selectedId).date}
+                </Text>
+                <Text style={{ fontSize: 13 }}>
+                  {events.at(selectedId).time}
+                </Text>
+              </View>
+              <Text style={{ fontSize: 16, fontWeight: "bold", marginTop: 36 }}>
+                I didn't go because
+              </Text>
+              <View style={popUpStyles.reasonContainer}>
+                {reasonsForMissing.map((reason) => (
+                  <View key={reason.id} style={popUpStyles.reason}>
+                    <Text style={{ fontSize: 16 }}>Reason</Text>
+                  </View>
+                ))}
+              </View>
+              <Pressable
+                style={[popUpStyles.confirmButton, { marginTop: "auto" }]}
+                onPress={() => setMissedEventPopup(false)}
+              >
+                <Text style={{ fontSize: 15, color: "white" }}>Submit</Text>
               </Pressable>
             </View>
           )}
@@ -352,7 +654,7 @@ export default function Home({ navigation, route }) {
                           style={styles.signUpButton}
                           onPress={() => registerForEvent(ev.id)}
                         >
-                          <Text style={{ fontSize: 12, color: "#838282" }}>
+                          <Text style={{ fontSize: 12, color: "black" }}>
                             {displayType === "default" && <Text>Sign Up</Text>}
                             {displayType === "registered" && (
                               <Text>Registered</Text>
@@ -367,6 +669,7 @@ export default function Home({ navigation, route }) {
                             marginTop: 16,
                             textDecorationLine: "underline",
                           }}
+                          onPress={() => setModifyPopup(true)}
                         >
                           Modify your registration
                         </Text>
@@ -502,7 +805,7 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 10,
   },
   signUpButton: {
-    backgroundColor: "#DADADA",
+    backgroundColor: "#979797",
     marginTop: 16,
     borderRadius: 7,
     width: 108,
@@ -700,5 +1003,52 @@ const popUpStyles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     paddingTop: 48,
+  },
+  modifyRegistration: {
+    width: 324,
+    height: 560,
+    backgroundColor: "white",
+    position: "absolute",
+    zIndex: 2,
+    borderRadius: 8,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  attendedEvent: {
+    width: 324,
+    height: 713,
+    backgroundColor: "white",
+    position: "absolute",
+    zIndex: 2,
+    borderRadius: 8,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  missedEvent: {
+    width: 324,
+    height: 521,
+    backgroundColor: "white",
+    position: "absolute",
+    zIndex: 2,
+    borderRadius: 8,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  reasonContainer: {
+    display: "flex",
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: 19,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 24,
+  },
+  reason: {
+    width: 112,
+    height: 63,
+    backgroundColor: "#D9D9D9",
+    borderRadius: 8,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });

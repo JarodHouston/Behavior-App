@@ -259,7 +259,7 @@ export default function Profile({ navigation }) {
 
             <Text style={editStyles.sectionTitle}>Preference Settings</Text>
             <Text style={editStyles.option}>Frequency of activity</Text>
-            <Text style={editStyles.option}>Take survey</Text>
+            <Text style={editStyles.option}>Edit activity preferences</Text>
 
             <Text style={editStyles.sectionTitle}>Privacy Settings</Text>
             <Text style={editStyles.option}>Reviews I wrote</Text>
