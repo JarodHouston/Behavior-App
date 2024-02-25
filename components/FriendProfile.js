@@ -49,19 +49,21 @@ export default function FriendProfile({ navigation }) {
               style={styles.headerButton}
               onPress={() => setFollowing(true)}
             >
-              {following ? <Text>Message</Text> : <Text>Follow</Text>}
+              {following ? <Text>Message</Text> : <Text>Add Friend</Text>}
             </Pressable>
           </View>
-          <View style={styles.sharedPhotoContainer}>
-            <View style={styles.sharedPhoto}></View>
-            <View style={styles.sharedPhoto}></View>
-            <View style={styles.sharedPhoto}></View>
-            <View style={styles.sharedPhoto}></View>
-            <View style={styles.sharedPhoto}></View>
-          </View>
+        </View>
+        <View style={styles.sharedPhotoContainer}>
+          <View style={styles.sharedPhoto}></View>
+          <View style={styles.sharedPhoto}></View>
+          <View style={styles.sharedPhoto}></View>
+          <View style={styles.sharedPhoto}></View>
+          <View style={styles.sharedPhoto}></View>
         </View>
         <View>
-          <Text style={styles.sectionTitle}>Recently joined events</Text>
+          <Text style={[styles.sectionTitle, { marginTop: 26 }]}>
+            Recently joined events
+          </Text>
           <View style={styles.activityContainer}>
             <View style={styles.activityCard}>
               <Text>Details</Text>
@@ -169,11 +171,10 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     justifyContent: "flex-end",
-    gap: 5,
+    gap: 6,
     position: "relative",
-    marginTop: "auto",
-    marginBottom: 12,
-    marginRight: 34,
+    marginTop: 12,
+    marginRight: 12,
   },
   sharedPhoto: {
     width: 41,
