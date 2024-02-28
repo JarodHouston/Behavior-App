@@ -8,16 +8,19 @@ import {
   Pressable,
   TouchableOpacity,
   FlatList,
+  Image,
 } from "react-native";
 import { useState } from "react";
 
 import Navbar from "./items/Navbar";
+import { useNavigationBuilder } from "@react-navigation/native";
 
 export default function Home({ navigation, route }) {
   const { displayType } = route.params ?? { displayType: "default" };
 
   const [activitySelected, setActivitySelected] = useState(false);
   const [ticketValue, setTicketValue] = useState(1);
+  const [review, setReview] = useState("");
 
   const [registrationPopup, setRegistartionPopup] = useState(false);
   const [confirmationPopup, setConfirmationPopup] = useState(false);
@@ -32,45 +35,57 @@ export default function Home({ navigation, route }) {
   const events = [
     {
       id: 0,
-      eventTitle: "Griffith Observatory Yoga",
+      eventTitle: "Griffith Observatory Starry Yoga Night",
       date: "Saturday, February 3",
-      time: "10 am - 12 pm PST",
+      time: "7 pm - 9 pm PST",
       price: 1,
       eventDescription:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
+        "Merge the tranquility of yoga with the awe-inspiring backdrop of the cosmos at Griffith Observatory. This unique experience combines a serene yoga session with a guided stargazing tour, allowing participants to stretch under the stars and explore the mysteries of the universe.",
+      venueDescription:
+        "Held on the expansive lawns surrounding the iconic Griffith Observatory, this event offers breathtaking views of Los Angeles and the night sky. The event starts just after sunset, around 7:00 PM, providing a perfect blend of natural beauty and cosmic wonder.",
+      image: require("./images/GriffithObservatory.png"),
       registered: true,
       passed: false,
     },
     {
       id: 1,
-      eventTitle: "Echo Park Yoga",
+      eventTitle: "Echo Park Lake Sunrise Yoga",
       date: "Saturday, February 3",
-      time: "10 am - 12 pm PST",
+      time: "6 am - 8 am PST",
       price: 1,
       eventDescription:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
+        "Welcome the new day with a rejuvenating yoga session by the serene waters of Echo Park Lake. This early morning class focuses on mindful movements and breathwork, set to the calming sounds of nature, creating a peaceful start to your day.",
+      venueDescription:
+        "Taking place on the north side of Echo Park Lake, participants will enjoy a scenic view of the water and downtown LA skyline. The session begins at 6:00 AM, allowing yogis to enjoy the tranquil beauty of the park at dawn.",
+      image: require("./images/EchoPark.png"),
       registered: true,
       passed: false,
     },
     {
       id: 2,
-      eventTitle: "Silverlake Yoga",
+      eventTitle: "Silverlake Yoga in the Park",
       date: "Saturday, February 3",
-      time: "8 am - 10 am PST",
+      time: "9 am - 10 am PST",
       price: 2,
       eventDescription:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
+        "Join a community of yoga enthusiasts for an outdoor session in the heart of Silverlake. This event caters to all levels, from beginners to advanced practitioners, and offers a variety of yoga styles. After the session, enjoy mingling with fellow yogis in one of LA's most vibrant neighborhoods.",
+      venueDescription:
+        "This yoga gathering is located in Silver Lake Meadow, a spacious and grassy area known for its relaxed atmosphere. The event starts at 9:00 AM, making it an ideal morning activity that leaves the rest of the day open for exploration.",
+      image: require("./images/Silverlake.png"),
       registered: false,
       passed: true,
     },
     {
       id: 3,
-      eventTitle: "Puppy Yoga",
+      eventTitle: "Puppy Yoga at the Pet Rescue Center",
       date: "Saturday, February 3",
       time: "9 am - 10 am PST",
       price: 3,
       eventDescription:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
+        "Combine your love for yoga and furry friends at this heartwarming puppy yoga event. Held at a local pet rescue center, this session involves playful puppies roaming and interacting with participants as they practice, offering a dose of joy and relaxation.",
+      venueDescription:
+        "Hosted in the outdoor play area of the pet rescue center, this event not only provides a delightful yoga experience but also raises awareness and support for animal adoption. The session begins at 10:00 AM, offering a perfect blend of exercise, play, and philanthropy.",
+      image: undefined,
       registered: false,
       passed: true,
     },
@@ -122,6 +137,7 @@ export default function Home({ navigation, route }) {
     if (!activitySelected) {
       if (displayType === "history" && id === 2) {
         setAttendedEventPopup(true);
+        setReview("");
       } else if (displayType === "history" && id === 3) {
         setMissedEventPopup(true);
       }
@@ -186,15 +202,25 @@ export default function Home({ navigation, route }) {
               <View
                 style={{
                   alignItems: "center",
-                  height: 70,
                   justifyContent: "space-between",
-                  //marginTop: 40,
+                  marginBottom: 10,
                 }}
               >
-                <Text style={{ fontSize: 22 }}>
+                <Text
+                  style={{
+                    fontSize: 22,
+                    textAlign: "center",
+                    maxWidth: "90%",
+                  }}
+                >
                   {events.at(selectedId).eventTitle}
                 </Text>
-                <View style={{ alignItems: "center" }}>
+                <View
+                  style={{
+                    alignItems: "center",
+                    marginTop: 10,
+                  }}
+                >
                   <Text style={{ fontSize: 14 }}>
                     {events.at(selectedId).date}
                   </Text>
@@ -222,7 +248,7 @@ export default function Home({ navigation, route }) {
                   </Text>
                 </View>
               </View>
-              <View style={{ marginTop: 20, gap: 13 }}>
+              <View style={{ marginTop: 20, marginBottom: 26, gap: 13 }}>
                 <Text>Select number of tickets</Text>
                 <View
                   style={{
@@ -270,7 +296,13 @@ export default function Home({ navigation, route }) {
               >
                 X
               </Text>
-              <Text style={{ fontSize: 20, textAlign: "center" }}>
+              <Text
+                style={{
+                  fontSize: 20,
+                  textAlign: "center",
+                  width: "80%",
+                }}
+              >
                 {events.at(selectedId).eventTitle}
               </Text>
               <View
@@ -292,8 +324,8 @@ export default function Home({ navigation, route }) {
                   fontSize: 22,
                   width: 150,
                   textAlign: "center",
-                  marginTop: 36,
-                  marginBottom: 36,
+                  marginTop: 30,
+                  marginBottom: 40,
                   lineHeight: 28,
                   letterSpacing: 0.4,
                 }}
@@ -305,6 +337,8 @@ export default function Home({ navigation, route }) {
                   fontSize: 15,
                   textDecorationLine: "underline",
                   color: "#19191B",
+                  marginTop: 10,
+                  marginBottom: 30,
                 }}
                 onPress={() => {
                   if (!activitySelected) {
@@ -361,7 +395,12 @@ export default function Home({ navigation, route }) {
                   {events.at(selectedId).time}
                 </Text>
               </View>
-              <View style={[popUpStyles.eventDetails, { height: 200 }]}>
+              <View
+                style={[
+                  popUpStyles.eventDetails,
+                  { paddingTop: 14, paddingBottom: 16 },
+                ]}
+              >
                 <Text style={{ fontSize: 16, textDecorationLine: "underline" }}>
                   Event Details
                 </Text>
@@ -464,12 +503,24 @@ export default function Home({ navigation, route }) {
                 >
                   Leave a review
                 </Text>
-                <View style={[popUpStyles.eventDetails, { height: 140 }]}>
-                  <Text style={{ fontSize: 16, lineHeight: 22 }}>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua.
-                  </Text>
+                <View
+                  style={[
+                    popUpStyles.eventDetails,
+                    {
+                      height: 140,
+                      justifyContent: "flex-start",
+                      paddingTop: 7,
+                    },
+                  ]}
+                >
+                  <TextInput
+                    style={{ height: "100%" }}
+                    fontSize={16}
+                    value={review}
+                    onChangeText={(text) => setReview(text)}
+                    multiline
+                    textAlignVertical="top"
+                  />
                 </View>
                 <View
                   style={[
@@ -505,6 +556,7 @@ export default function Home({ navigation, route }) {
                   fontSize: 14,
                   textDecorationLine: "underline",
                   marginTop: 12,
+                  marginBottom: 20,
                 }}
                 onPress={() => {
                   setAttendedEventPopup(false);
@@ -602,6 +654,9 @@ export default function Home({ navigation, route }) {
                         <Text>Verified Vendor</Text>
                       </View>
                     )}
+                    {ev.image && (
+                      <Image style={styles.eventImage} source={ev.image} />
+                    )}
                     {activitySelected && (
                       <View style={eventStyles.authorContainer}>
                         <View
@@ -652,7 +707,9 @@ export default function Home({ navigation, route }) {
                       {displayType !== "history" && (
                         <Pressable
                           style={styles.signUpButton}
-                          onPress={() => registerForEvent(ev.id)}
+                          onPress={() =>
+                            displayType === "default" && registerForEvent(ev.id)
+                          }
                         >
                           <Text style={{ fontSize: 12, color: "black" }}>
                             {displayType === "default" && <Text>Sign Up</Text>}
@@ -727,9 +784,7 @@ export default function Home({ navigation, route }) {
                 Venue Details
               </Text>
               <Text style={{ fontSize: 16, marginTop: 16, lineHeight: 22 }}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam
+                {events.at(selectedId).venueDescription}
               </Text>
               <Text
                 style={{
@@ -791,9 +846,11 @@ const styles = StyleSheet.create({
   cardInfo: {
     marginTop: "auto",
     marginLeft: 44,
+    marginRight: 44,
   },
   vendorTag: {
     backgroundColor: "#D9D9D9",
+    zIndex: 2,
     width: 161,
     height: 38,
     justifyContent: "center",
@@ -803,6 +860,14 @@ const styles = StyleSheet.create({
     marginLeft: "auto",
     borderTopLeftRadius: 10,
     borderBottomLeftRadius: 10,
+  },
+  eventImage: {
+    // resizeMode: "center",
+    position: "absolute",
+    height: "100%",
+    width: undefined,
+    aspectRatio: 1,
+    top: 0,
   },
   signUpButton: {
     backgroundColor: "#979797",
@@ -858,17 +923,15 @@ const styles = StyleSheet.create({
 const eventStyles = StyleSheet.create({
   eventInfoContainer: {
     width: 354,
-    height: 193,
+    // height: 193,
     marginLeft: "auto",
     marginRight: "auto",
     marginTop: 32,
     justifyContent: "center",
-    paddingLeft: 24,
-    paddingRight: 24,
+    padding: 24,
     borderColor: "#AFB1B6",
     borderWidth: 2,
     borderRadius: 8,
-    paddingBottom: 6,
   },
   venueInfoContainer: {
     height: "auto",
@@ -941,7 +1004,7 @@ const eventStyles = StyleSheet.create({
 const popUpStyles = StyleSheet.create({
   register: {
     width: 302,
-    height: 520,
+    // height: 520,
     backgroundColor: "white",
     position: "absolute",
     zIndex: 2,
@@ -952,14 +1015,13 @@ const popUpStyles = StyleSheet.create({
   },
   eventDetails: {
     width: 269,
-    height: 158,
+    // height: 158,
     borderColor: "#AFB1B6",
     borderRadius: 8,
     borderWidth: 2,
-    marginTop: 26,
+    marginTop: 6,
     justifyContent: "center",
-    paddingLeft: 10,
-    paddingRight: 10,
+    padding: 10,
   },
   registration: {
     width: "82%",
@@ -995,7 +1057,7 @@ const popUpStyles = StyleSheet.create({
   },
   confirmation: {
     width: 302,
-    height: 381,
+    // height: 381,
     backgroundColor: "white",
     position: "absolute",
     zIndex: 2,
@@ -1006,7 +1068,7 @@ const popUpStyles = StyleSheet.create({
   },
   modifyRegistration: {
     width: 324,
-    height: 560,
+    // height: 560,
     backgroundColor: "white",
     position: "absolute",
     zIndex: 2,
@@ -1016,7 +1078,7 @@ const popUpStyles = StyleSheet.create({
   },
   attendedEvent: {
     width: 324,
-    height: 713,
+    // height: 713,
     backgroundColor: "white",
     position: "absolute",
     zIndex: 2,
@@ -1026,7 +1088,7 @@ const popUpStyles = StyleSheet.create({
   },
   missedEvent: {
     width: 324,
-    height: 521,
+    // height: 521,
     backgroundColor: "white",
     position: "absolute",
     zIndex: 2,
@@ -1042,6 +1104,7 @@ const popUpStyles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginTop: 24,
+    marginBottom: 30,
   },
   reason: {
     width: 112,
