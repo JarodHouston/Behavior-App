@@ -98,23 +98,23 @@ export default function Survey1({ navigation }) {
   const groupSizeOptions = [
     {
       id: 0,
-      title: "1",
+      title: "1 person",
     },
     {
       id: 1,
-      title: "2-5",
+      title: "2-5 people",
     },
     {
       id: 2,
-      title: "6-10",
+      title: "6-10 people",
     },
     {
       id: 3,
-      title: "11-14",
+      title: "11-14 people",
     },
     {
       id: 4,
-      title: "15+",
+      title: "15+ people",
     },
     {
       id: 5,
@@ -133,9 +133,18 @@ export default function Survey1({ navigation }) {
         </Text>
         <Text style={{ textAlign: "center", padding: 20 }}>Progress Bar</Text>
       </View>
-      <Text style={{ textAlign: "center", fontSize: 24, marginBottom: 16 }}>
-        Let us know your preferences
-      </Text>
+      <View style={{ alignItems: "center" }}>
+        <Text
+          style={{
+            textAlign: "center",
+            fontSize: 24,
+            marginBottom: 0,
+            width: "90%",
+          }}
+        >
+          Let us know your activity preferences
+        </Text>
+      </View>
       <ScrollView style={styles.scrollContainer}>
         <View style={styles.surveyContainer}>
           <View style={styles.optionContainer}>
@@ -154,7 +163,7 @@ export default function Survey1({ navigation }) {
                       styles.option,
                       { top: option.id * -1 },
                       distanceOptionSelected === option.id
-                        ? { borderColor: "black", zIndex: 2 }
+                        ? styles.selectedPreference
                         : {},
                     ]}
                     onPress={() => setDistanceOptionSelected(option.id)}
@@ -186,7 +195,7 @@ export default function Survey1({ navigation }) {
                       styles.option,
                       { top: option.id * -1 },
                       dayNightOptionSelected === option.id
-                        ? { borderColor: "black", zIndex: 2 }
+                        ? styles.selectedPreference
                         : {},
                     ]}
                     onPress={() => setDayNightOptionsSelected(option.id)}
@@ -222,7 +231,7 @@ export default function Survey1({ navigation }) {
                       styles.option,
                       { top: option.id * -1 },
                       activeChillOptionsSelected === option.id
-                        ? { borderColor: "black", zIndex: 2 }
+                        ? styles.selectedPreference
                         : {},
                     ]}
                     onPress={() => setActiveChillOptionsSelected(option.id)}
@@ -258,7 +267,7 @@ export default function Survey1({ navigation }) {
                       styles.option,
                       { top: option.id * -1 },
                       indoorOutdoorOptionsSelected === option.id
-                        ? { borderColor: "black", zIndex: 2 }
+                        ? styles.selectedPreference
                         : {},
                     ]}
                     onPress={() => setIndoorOutdoorOptionsSelected(option.id)}
@@ -290,7 +299,7 @@ export default function Survey1({ navigation }) {
                       styles.option,
                       { top: option.id * -1 },
                       groupSizeOptionsSelected === option.id
-                        ? { borderColor: "black", zIndex: 2 }
+                        ? styles.selectedPreference
                         : {},
                     ]}
                     onPress={() => setGroupSizeOptionsSelected(option.id)}
@@ -365,5 +374,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     borderWidth: 1,
     borderColor: "#AFB1B6",
+  },
+  selectedPreference: {
+    borderColor: "black",
+    borderWidth: 2,
+    zIndex: 2,
   },
 });

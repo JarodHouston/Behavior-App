@@ -135,6 +135,15 @@ export default function FriendProfile({ navigation }) {
               <Text>Tag</Text>
             </View>
           </View>
+          <Text
+            style={{
+              fontSize: 15,
+              textDecorationLine: "underline",
+              textAlign: "center",
+            }}
+          >
+            See more reviews
+          </Text>
         </View>
         <View style={{ marginBottom: 160 }}></View>
       </ScrollView>
