@@ -16,7 +16,9 @@ import Navbar from "./items/Navbar";
 import { useNavigationBuilder } from "@react-navigation/native";
 
 export default function Home({ navigation, route }) {
-  const { displayType } = route.params ?? { displayType: "default" };
+  const { displayType } = route.params ?? {
+    displayType: "default",
+  };
 
   const [activitySelected, setActivitySelected] = useState(false);
   const [ticketValue, setTicketValue] = useState(1);
@@ -85,7 +87,7 @@ export default function Home({ navigation, route }) {
         "Combine your love for yoga and furry friends at this heartwarming puppy yoga event. Held at a local pet rescue center, this session involves playful puppies roaming and interacting with participants as they practice, offering a dose of joy and relaxation.",
       venueDescription:
         "Hosted in the outdoor play area of the pet rescue center, this event not only provides a delightful yoga experience but also raises awareness and support for animal adoption. The session begins at 10:00 AM, offering a perfect blend of exercise, play, and philanthropy.",
-      image: undefined,
+      image: require("./images/PuppyYoga.jpeg"),
       registered: false,
       passed: true,
     },
@@ -132,6 +134,17 @@ export default function Home({ navigation, route }) {
       id: 4,
     },
   ];
+
+  function resetHome() {
+    setActivitySelected(false);
+    setRegistartionPopup(false);
+    setConfirmationPopup(false);
+    setModifyPopup(false);
+    setAttendedEventPopup(false);
+    setMissedEventPopup(false);
+    setReview("");
+    setTicketValue(1);
+  }
 
   function selectActivity(id) {
     if (!activitySelected) {
@@ -398,7 +411,7 @@ export default function Home({ navigation, route }) {
               <View
                 style={[
                   popUpStyles.eventDetails,
-                  { paddingTop: 14, paddingBottom: 16 },
+                  { paddingTop: 14, paddingBottom: 16, marginTop: 20 },
                 ]}
               >
                 <Text style={{ fontSize: 16, textDecorationLine: "underline" }}>
@@ -422,6 +435,7 @@ export default function Home({ navigation, route }) {
                   fontSize: 16,
                   textDecorationLine: "underline",
                   marginTop: 34,
+                  marginBottom: 20,
                 }}
               >
                 Adjust ticket quantity
@@ -631,7 +645,7 @@ export default function Home({ navigation, route }) {
           )}
         </View>
       )}
-      <Navbar navigation={navigation} />
+      <Navbar navigation={navigation} resetHome={resetHome} />
       <ScrollView>
         {events.map((ev) => (
           <View key={ev.id}>
@@ -655,7 +669,20 @@ export default function Home({ navigation, route }) {
                       </View>
                     )}
                     {ev.image && (
-                      <Image style={styles.eventImage} source={ev.image} />
+                      <Image
+                        style={
+                          activitySelected
+                            ? [
+                                styles.eventImage,
+                                {
+                                  borderBottomLeftRadius: 0,
+                                  borderBottomRightRadius: 0,
+                                },
+                              ]
+                            : styles.eventImage
+                        }
+                        source={ev.image}
+                      />
                     )}
                     {activitySelected && (
                       <View style={eventStyles.authorContainer}>
@@ -829,7 +856,7 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
     borderBottomLeftRadius: 15,
     borderBottomRightRadius: 15,
-    paddingBottom: 38,
+    // paddingBottom: 38,
     shadowColor: "black",
     shadowOffset: { width: 2, height: 3 },
     shadowOpacity: 0.1,
@@ -841,12 +868,13 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 0,
     borderBottomRightRadius: 0,
     marginBottom: 10,
-    paddingBottom: 30,
+    // paddingBottom: 30,
   },
   cardInfo: {
     marginTop: "auto",
     marginLeft: 44,
     marginRight: 44,
+    marginBottom: 38,
   },
   vendorTag: {
     backgroundColor: "#D9D9D9",
@@ -865,9 +893,11 @@ const styles = StyleSheet.create({
     // resizeMode: "center",
     position: "absolute",
     height: "100%",
-    width: undefined,
+    width: "100%",
     aspectRatio: 1,
     top: 0,
+    borderBottomLeftRadius: 15,
+    borderBottomRightRadius: 15,
   },
   signUpButton: {
     backgroundColor: "#979797",

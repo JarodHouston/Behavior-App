@@ -14,10 +14,25 @@ import { useState } from "react";
 
 import Navbar from "./items/Navbar";
 
-export default function Profile({ navigation }) {
+export default function Profile({ navigation, route }) {
+  const { displayType } = route.params ?? {
+    displayType: "default",
+  };
+
   const [editProfile, setEditProfile] = useState(false);
   const [friendsPage, setFriendsPage] = useState(false);
   const [friendFilterOption, setFriendFilterOption] = useState("");
+
+  function setProfile(state) {
+    if (state === "default") {
+      setEditProfile(false);
+      setFriendsPage(false);
+    }
+    if (state === "settings") {
+      setEditProfile(true);
+      setFriendsPage(false);
+    }
+  }
 
   const friendFilters = [
     { key: "1", value: "Filter 1" },
@@ -117,46 +132,48 @@ export default function Profile({ navigation }) {
 
   return (
     <View>
-      <Navbar navigation={navigation} />
+      <Navbar navigation={navigation} setProfile={setProfile} />
       <ScrollView style={{ height: "100%" }}>
-        {!editProfile && !friendsPage && (
-          <View>
-            <View style={mainStyles.userImage}>
-              <View style={mainStyles.userHeader}>
-                <View
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    gap: 20,
-                  }}
-                >
-                  <View
-                    style={{
-                      width: 52,
-                      height: 52,
-                      borderRadius: 50,
-                      borderColor: "#AFB1B6",
-                      borderWidth: 1,
-                    }}
-                  ></View>
-                  <View>
-                    <Text>Username</Text>
-                    <Text>Preference</Text>
-                  </View>
-                </View>
-                <Pressable
-                  style={mainStyles.editButton}
-                  onPress={() => {
-                    setEditProfile(true);
-                    setFriendsPage(false);
-                  }}
-                >
-                  <Text>Edit Profile</Text>
-                </Pressable>
+        <View style={mainStyles.userImage}>
+          <View style={mainStyles.userHeader}>
+            <View
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "center",
+                alignItems: "center",
+                gap: 20,
+              }}
+            >
+              <View
+                style={{
+                  width: 52,
+                  height: 52,
+                  borderRadius: 50,
+                  borderColor: "#AFB1B6",
+                  borderWidth: 1,
+                }}
+              ></View>
+              <View>
+                <Text>Username</Text>
+                <Text>Preference</Text>
               </View>
             </View>
+            {!editProfile && displayType !== "settings" && (
+              <Pressable
+                style={mainStyles.editButton}
+                onPress={() => {
+                  setEditProfile(true);
+                  setFriendsPage(false);
+                }}
+              >
+                <Text>Edit Profile</Text>
+              </Pressable>
+            )}
+          </View>
+        </View>
+        {!editProfile && !friendsPage && displayType !== "settings" && (
+          <View>
             <View style={{ marginTop: 40 }}>
               <Text
                 style={{
@@ -250,9 +267,8 @@ export default function Profile({ navigation }) {
             </View>
           </View>
         )}
-        {editProfile && (
+        {(editProfile || displayType === "settings") && (
           <View>
-            <View style={mainStyles.userImage}></View>
             <Text style={mainStyles.sectionTitle}>Account Settings</Text>
             <Text style={editStyles.option}>E-mail</Text>
             <Text style={editStyles.option}>Mobile phone</Text>
@@ -271,7 +287,6 @@ export default function Profile({ navigation }) {
         )}
         {friendsPage && (
           <View>
-            <View style={mainStyles.userImage}></View>
             <Text style={mainStyles.sectionTitle}>Recently added friends</Text>
             <View style={{ marginTop: 24, marginLeft: 10 }}>
               <FlatList
@@ -321,8 +336,9 @@ export default function Profile({ navigation }) {
                   <TouchableOpacity
                     onPress={() => navigation.navigate("FriendProfile")}
                     activeOpacity={1}
+                    key={friend.id}
                   >
-                    <View key={friend.id} style={mainStyles.friendCard}>
+                    <View style={mainStyles.friendCard}>
                       <View style={mainStyles.friendProfile}></View>
                       <View style={{ justifyContent: "center" }}>
                         <Text>{friend.name}</Text>
