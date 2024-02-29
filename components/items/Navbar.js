@@ -7,24 +7,44 @@ import {
   TextInput,
   Pressable,
   FlatList,
+  Image,
 } from "react-native";
 import { useState } from "react";
 
-const Navbar = ({ navigation }) => {
-  const [menuDropdown, setMenuDropdown] = useState(false);
+const iconSize = 28;
+
+const Navbar = ({ navigation, resetHome, setProfile }) => {
+  const [hamburgerMenu, toggleHamburgerMenu] = useState(false);
   return (
-    <View style={styles.container}>
-      <SafeAreaView
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-between",
-          marginTop: 68,
-          marginLeft: 23,
-          marginRight: 23,
-        }}
-      >
-        <Pressable onPress={() => setMenuDropdown(!menuDropdown)}>
+    <View style={{ zIndex: 3 }}>
+      <View style={styles.container}>
+        <SafeAreaView
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+            marginTop: 64,
+            marginLeft: 25,
+            marginRight: 25,
+          }}
+        >
+          <Pressable
+            onPress={() => {
+              navigation.navigate("Home", {
+                displayType: "default",
+              });
+              if (resetHome) {
+                resetHome();
+              }
+            }}
+          >
+            <Image
+              style={styles.homeIcon}
+              source={require("../icons/home.png")}
+            />
+          </Pressable>
+          {/* <Pressable onPress={() => setMenuDropdown(!menuDropdown)}>
           <Text>Menu</Text>
           {menuDropdown && (
             <View style={{ display: "flex", flexDirection: "row", gap: 20 }}>
@@ -37,9 +57,93 @@ const Navbar = ({ navigation }) => {
               </Text>
             </View>
           )}
-        </Pressable>
-        <Text>Settings</Text>
-      </SafeAreaView>
+        </Pressable> */}
+          <Pressable onPress={() => toggleHamburgerMenu(!hamburgerMenu)}>
+            <Image
+              style={styles.hamburgerIcon}
+              source={require("../icons/hamburger.png")}
+            />
+          </Pressable>
+        </SafeAreaView>
+      </View>
+      <View
+        style={{
+          width: "100%",
+          alignItems: "flex-end",
+        }}
+      >
+        {hamburgerMenu && (
+          <View style={styles.menuStyles}>
+            <View
+              style={{
+                width: "80%",
+                alignItems: "flex-start",
+              }}
+            >
+              <Text
+                style={styles.menuItem}
+                onPress={() => {
+                  navigation.navigate("Profile", {
+                    displayType: "default",
+                  });
+                  toggleHamburgerMenu(false);
+                  if (setProfile) {
+                    setProfile("default");
+                  }
+                  if (resetHome) {
+                    resetHome();
+                  }
+                }}
+              >
+                Profile
+              </Text>
+              <Text
+                style={styles.menuItem}
+                onPress={() => {
+                  navigation.navigate("Home", {
+                    displayType: "registered",
+                  });
+                  if (resetHome) {
+                    resetHome();
+                  }
+                  toggleHamburgerMenu(false);
+                }}
+              >
+                Upcoming Events
+              </Text>
+              <Text
+                style={styles.menuItem}
+                onPress={() => {
+                  navigation.navigate("Profile", {
+                    displayType: "settings",
+                  });
+                  toggleHamburgerMenu(false);
+                  if (setProfile) {
+                    setProfile("settings");
+                  }
+                  if (resetHome) {
+                    resetHome();
+                  }
+                }}
+              >
+                Settings
+              </Text>
+              <Text
+                style={styles.menuItem}
+                onPress={() => {
+                  navigation.navigate("SignUp");
+                  if (resetHome) {
+                    resetHome();
+                  }
+                  toggleHamburgerMenu(false);
+                }}
+              >
+                Sign Out
+              </Text>
+            </View>
+          </View>
+        )}
+      </View>
     </View>
   );
 };
@@ -48,6 +152,27 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "#979797",
     height: 106,
+  },
+  menuStyles: {
+    position: "absolute",
+    backgroundColor: "#979797",
+    width: 270,
+    alignItems: "center",
+    paddingTop: 10,
+    paddingBottom: 30,
+  },
+  menuItem: {
+    textAlign: "center",
+    fontSize: 19,
+    marginTop: 20,
+  },
+  homeIcon: {
+    width: iconSize,
+    height: iconSize,
+  },
+  hamburgerIcon: {
+    width: iconSize,
+    height: iconSize,
   },
 });
 
