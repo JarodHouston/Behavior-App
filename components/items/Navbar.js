@@ -24,7 +24,7 @@ const Navbar = ({ navigation, resetHome, setProfile }) => {
             flexDirection: "row",
             justifyContent: "space-between",
             alignItems: "center",
-            marginTop: 64,
+            marginTop: 62,
             marginLeft: 25,
             marginRight: 25,
           }}
@@ -37,6 +37,7 @@ const Navbar = ({ navigation, resetHome, setProfile }) => {
               if (resetHome) {
                 resetHome();
               }
+              toggleHamburgerMenu(false);
             }}
           >
             <Image
@@ -150,16 +151,17 @@ const Navbar = ({ navigation, resetHome, setProfile }) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#979797",
+    backgroundColor: "#F7A38E",
     height: 106,
   },
   menuStyles: {
     position: "absolute",
-    backgroundColor: "#979797",
+    backgroundColor: "#FFF1EB",
     width: 270,
     alignItems: "center",
     paddingTop: 10,
     paddingBottom: 30,
+    borderBottomLeftRadius: 15,
   },
   menuItem: {
     textAlign: "center",

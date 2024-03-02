@@ -6,6 +6,8 @@ import {
   Text,
   TextInput,
   Pressable,
+  Image,
+  TouchableOpacity,
 } from "react-native";
 import { useState } from "react";
 
@@ -124,13 +126,25 @@ export default function Survey1({ navigation }) {
 
   return (
     <SafeAreaView>
-      <View>
-        <Text
-          style={{ position: "absolute", top: 20, left: 30, zIndex: 3 }}
+      <View style={{ justifyContent: "center" }}>
+        <TouchableOpacity
+          style={{ justifyContent: "center", position: "absolute", zIndex: 3 }}
           onPress={() => navigation.navigate("AccountCreated")}
         >
-          back
-        </Text>
+          <View style={{ width: 22, height: 22 }}>
+            <Image
+              style={{
+                position: "absolute",
+                left: 30,
+                zIndex: 3,
+                width: 22,
+                height: 22,
+              }}
+              source={require("../icons/back.png")}
+            />
+          </View>
+        </TouchableOpacity>
+
         <Text style={{ textAlign: "center", padding: 20 }}>Progress Bar</Text>
       </View>
       <View style={{ alignItems: "center" }}>
@@ -150,7 +164,10 @@ export default function Survey1({ navigation }) {
           <View style={styles.optionContainer}>
             <View>
               <Pressable
-                style={styles.surveyButton}
+                style={[
+                  styles.surveyButton,
+                  !distanceOptionsState ? styles.buttonShadow : {},
+                ]}
                 onPress={() => setDistanceOptionsState(!distanceOptionsState)}
               >
                 <Text style={{ fontSize: optionTextSize }}>Distance</Text>
@@ -182,7 +199,10 @@ export default function Survey1({ navigation }) {
             </View>
             <View>
               <Pressable
-                style={styles.surveyButton}
+                style={[
+                  styles.surveyButton,
+                  !dayNightOptionsState ? styles.buttonShadow : {},
+                ]}
                 onPress={() => setDayNightOptionsState(!dayNightOptionsState)}
               >
                 <Text style={{ fontSize: optionTextSize }}>Day vs. Night</Text>
@@ -214,7 +234,10 @@ export default function Survey1({ navigation }) {
             </View>
             <View>
               <Pressable
-                style={styles.surveyButton}
+                style={[
+                  styles.surveyButton,
+                  !activeChillOptionsState ? styles.buttonShadow : {},
+                ]}
                 onPress={() =>
                   setActiveChillOptionsState(!activeChillOptionsState)
                 }
@@ -250,7 +273,10 @@ export default function Survey1({ navigation }) {
             </View>
             <View>
               <Pressable
-                style={styles.surveyButton}
+                style={[
+                  styles.surveyButton,
+                  !indoorOutdoorOptionsState ? styles.buttonShadow : {},
+                ]}
                 onPress={() =>
                   setIndoorOutdoorOptionsState(!indoorOutdoorOptionsState)
                 }
@@ -286,7 +312,10 @@ export default function Survey1({ navigation }) {
             </View>
             <View>
               <Pressable
-                style={styles.surveyButton}
+                style={[
+                  styles.surveyButton,
+                  !groupSizeOptionsState ? styles.buttonShadow : {},
+                ]}
                 onPress={() => setGroupSizeOptionsState(!groupSizeOptionsState)}
               >
                 <Text style={{ fontSize: optionTextSize }}>Solo vs. Group</Text>
@@ -344,7 +373,7 @@ const styles = StyleSheet.create({
     marginBottom: 40,
   },
   button: {
-    backgroundColor: "#979797",
+    backgroundColor: "#F7A38E",
     borderRadius: 7,
     width: 304,
     height: 54,
@@ -352,10 +381,15 @@ const styles = StyleSheet.create({
     marginRight: "auto",
     alignItems: "center",
     justifyContent: "center",
-    top: -20,
+    top: -36,
+  },
+  buttonShadow: {
+    shadowColor: "black",
+    shadowOffset: { width: 1, height: 3 },
+    shadowOpacity: 0.2,
   },
   surveyButton: {
-    backgroundColor: "#D9D9D9",
+    backgroundColor: "#fce4ca",
     width: 304,
     height: 54,
     marginLeft: "auto",

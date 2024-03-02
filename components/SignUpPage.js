@@ -1,5 +1,12 @@
 import { useState } from "react";
-import { StyleSheet, View, SafeAreaView, Text, TextInput } from "react-native";
+import {
+  StyleSheet,
+  View,
+  SafeAreaView,
+  Text,
+  TextInput,
+  Image,
+} from "react-native";
 import { Switch, Pressable } from "react-native";
 
 export default function SignUpPage({ navigation }) {
@@ -11,7 +18,11 @@ export default function SignUpPage({ navigation }) {
 
   return (
     <SafeAreaView style={styles.signUpContainer}>
-      <View style={styles.image}></View>
+      {/* <View style={styles.image}></View> */}
+      <Image
+        style={styles.image}
+        source={require("./icons/HobbyHopperLogo.png")}
+      />
       <View style={inputStyles.inputContainer}>
         <View>
           <Text style={inputStyles.inputLabel}>Email Address</Text>
@@ -65,7 +76,7 @@ export default function SignUpPage({ navigation }) {
         </Text>
       </View>
       <Pressable
-        style={[styles.button, { marginTop: 30 }]}
+        style={[styles.button, { marginTop: 24 }]}
         onPress={() => navigation.navigate("AccountCreated")}
       >
         <Text style={styles.buttonText}>Create account</Text>
@@ -74,7 +85,7 @@ export default function SignUpPage({ navigation }) {
         style={{
           marginLeft: "auto",
           marginRight: "auto",
-          marginTop: 42,
+          marginTop: 34,
           fontSize: 12,
         }}
       >
@@ -93,45 +104,57 @@ export default function SignUpPage({ navigation }) {
 
 const inputStyles = StyleSheet.create({
   inputContainer: {
-    marginTop: 30,
+    marginTop: 16,
   },
   input: {
     height: 62,
     margin: 28,
-    marginTop: 16,
+    marginTop: 10,
     marginBottom: 8,
     borderWidth: 1,
     borderRadius: 7,
     padding: 10,
     paddingTop: 26,
     fontSize: 16,
+    backgroundColor: "#fffefe",
   },
   inputEach: {
     position: "relative",
   },
   inputLabel: {
     position: "absolute",
-    top: 24,
+    top: 20,
     left: 38,
     fontSize: 12,
+    zIndex: 3,
   },
 });
 
 const styles = StyleSheet.create({
   signUpContainer: {
     height: "100%",
-    //backgroundColor: "white",
+    backgroundColor: "#FFFCF3",
   },
   image: {
-    width: 250,
-    height: 146,
-    backgroundColor: "#AFB1B6",
+    width: 200,
+    height: 200,
     marginLeft: "auto",
     marginRight: "auto",
-    marginTop: 44,
-    borderWidth: 1,
-    borderRadius: 7,
+    marginTop: 30,
+    borderWidth: 2,
+    borderRadius: 10,
+    borderColor: "#F7A38E",
   },
+  // image: {
+  //   width: 250,
+  //   height: 146,
+  //   backgroundColor: "#AFB1B6",
+  //   marginLeft: "auto",
+  //   marginRight: "auto",
+  //   marginTop: 44,
+  //   borderWidth: 1,
+  //   borderRadius: 7,
+  // },
   toggleContainer: {
     flexDirection: "row",
     margin: 16,
@@ -139,7 +162,7 @@ const styles = StyleSheet.create({
     marginRight: 100,
   },
   button: {
-    backgroundColor: "#979797",
+    backgroundColor: "#F7A38E",
     borderRadius: 7,
     width: 304,
     height: 54,

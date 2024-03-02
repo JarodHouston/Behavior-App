@@ -45,7 +45,7 @@ export default function Home({ navigation, route }) {
         "Merge the tranquility of yoga with the awe-inspiring backdrop of the cosmos at Griffith Observatory. This unique experience combines a serene yoga session with a guided stargazing tour, allowing participants to stretch under the stars and explore the mysteries of the universe.",
       venueDescription:
         "Held on the expansive lawns surrounding the iconic Griffith Observatory, this event offers breathtaking views of Los Angeles and the night sky. The event starts just after sunset, around 7:00 PM, providing a perfect blend of natural beauty and cosmic wonder.",
-      image: require("./images/GriffithObservatory.png"),
+      image: require("./images/events/GriffithObservatory.png"),
       registered: true,
       passed: false,
     },
@@ -59,7 +59,7 @@ export default function Home({ navigation, route }) {
         "Welcome the new day with a rejuvenating yoga session by the serene waters of Echo Park Lake. This early morning class focuses on mindful movements and breathwork, set to the calming sounds of nature, creating a peaceful start to your day.",
       venueDescription:
         "Taking place on the north side of Echo Park Lake, participants will enjoy a scenic view of the water and downtown LA skyline. The session begins at 6:00 AM, allowing yogis to enjoy the tranquil beauty of the park at dawn.",
-      image: require("./images/EchoPark.png"),
+      image: require("./images/events/EchoPark.png"),
       registered: true,
       passed: false,
     },
@@ -73,7 +73,7 @@ export default function Home({ navigation, route }) {
         "Join a community of yoga enthusiasts for an outdoor session in the heart of Silverlake. This event caters to all levels, from beginners to advanced practitioners, and offers a variety of yoga styles. After the session, enjoy mingling with fellow yogis in one of LA's most vibrant neighborhoods.",
       venueDescription:
         "This yoga gathering is located in Silver Lake Meadow, a spacious and grassy area known for its relaxed atmosphere. The event starts at 9:00 AM, making it an ideal morning activity that leaves the rest of the day open for exploration.",
-      image: require("./images/Silverlake.png"),
+      image: require("./images/events/Silverlake.png"),
       registered: false,
       passed: true,
     },
@@ -87,7 +87,7 @@ export default function Home({ navigation, route }) {
         "Combine your love for yoga and furry friends at this heartwarming puppy yoga event. Held at a local pet rescue center, this session involves playful puppies roaming and interacting with participants as they practice, offering a dose of joy and relaxation.",
       venueDescription:
         "Hosted in the outdoor play area of the pet rescue center, this event not only provides a delightful yoga experience but also raises awareness and support for animal adoption. The session begins at 10:00 AM, offering a perfect blend of exercise, play, and philanthropy.",
-      image: require("./images/PuppyYoga.jpeg"),
+      image: require("./images/events/PuppyYoga.jpeg"),
       registered: false,
       passed: true,
     },
@@ -851,7 +851,7 @@ export default function Home({ navigation, route }) {
 
 const styles = StyleSheet.create({
   eventCard: {
-    backgroundColor: "#E8E8E8",
+    backgroundColor: "#FFFCF3",
     height: 500,
     justifyContent: "flex-end",
     borderBottomLeftRadius: 15,
@@ -862,7 +862,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
   },
   eventCardSelected: {
-    backgroundColor: "#E8E8E8",
+    backgroundColor: "#FFFCF3",
     height: 440,
     justifyContent: "flex-end",
     borderBottomLeftRadius: 0,
@@ -872,12 +872,15 @@ const styles = StyleSheet.create({
   },
   cardInfo: {
     marginTop: "auto",
-    marginLeft: 44,
-    marginRight: 44,
-    marginBottom: 38,
+    marginLeft: 30,
+    marginRight: 30,
+    marginBottom: 28,
+    backgroundColor: "rgba(255, 255, 255, 0.75)",
+    padding: 20,
+    borderRadius: 15,
   },
   vendorTag: {
-    backgroundColor: "#D9D9D9",
+    backgroundColor: "#F7C1CD",
     zIndex: 2,
     width: 161,
     height: 38,
@@ -900,7 +903,7 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 15,
   },
   signUpButton: {
-    backgroundColor: "#979797",
+    backgroundColor: "#F89880",
     marginTop: 16,
     borderRadius: 7,
     width: 108,
