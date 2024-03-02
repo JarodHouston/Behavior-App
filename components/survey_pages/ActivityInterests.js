@@ -7,6 +7,8 @@ import {
   TextInput,
   Pressable,
   FlatList,
+  Image,
+  TouchableOpacity,
 } from "react-native";
 import { useState } from "react";
 import Ionicons from "@expo/vector-icons/Ionicons";
@@ -39,7 +41,7 @@ export default function Survey2({ navigation }) {
     },
     {
       id: 5,
-      hobbieName: "Crafting",
+      hobbieName: "Water Sports",
       selected: false,
     },
     {
@@ -109,13 +111,23 @@ export default function Survey2({ navigation }) {
   // ];
   return (
     <SafeAreaView style={{ height: "100%" }}>
-      <View>
-        <Text
-          style={{ position: "absolute", top: 20, left: 30, zIndex: 3 }}
+      <View style={{ justifyContent: "center" }}>
+        <TouchableOpacity
+          style={{ justifyContent: "center", position: "absolute", zIndex: 3 }}
           onPress={() => navigation.navigate("ActivityPreferences")}
         >
-          back
-        </Text>
+          <View style={{ width: 22, height: 22 }}>
+            <Image
+              style={{
+                left: 30,
+                zIndex: 3,
+                width: 22,
+                height: 22,
+              }}
+              source={require("../icons/back.png")}
+            />
+          </View>
+        </TouchableOpacity>
         <Text style={{ textAlign: "center", padding: 20 }}>Progress Bar</Text>
       </View>
       <Text style={{ textAlign: "center", fontSize: 24 }}>
@@ -166,7 +178,7 @@ export default function Survey2({ navigation }) {
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: "#979797",
+    backgroundColor: "#F7A38E",
     borderRadius: 7,
     width: 304,
     height: 54,
@@ -186,10 +198,10 @@ const styles = StyleSheet.create({
   hobbyCard: {
     width: 177,
     height: 128,
-    backgroundColor: "#D9D9D9",
+    backgroundColor: "#FFD2DC",
     justifyContent: "flex-end",
     alignItems: "center",
-    borderColor: "#AFB1B6",
+    borderColor: "#F8B0C0",
     borderWidth: 2,
     borderRadius: 5,
     margin: 6,

@@ -7,6 +7,8 @@ import {
   TextInput,
   Pressable,
   FlatList,
+  Image,
+  TouchableOpacity,
 } from "react-native";
 import { useState } from "react";
 
@@ -22,13 +24,23 @@ export default function Survey4({ navigation }) {
 
   return (
     <SafeAreaView style={{ height: "100%" }}>
-      <View>
-        <Text
-          style={{ position: "absolute", top: 20, left: 30, zIndex: 3 }}
+      <View style={{ justifyContent: "center" }}>
+        <TouchableOpacity
+          style={{ justifyContent: "center", position: "absolute", zIndex: 3 }}
           onPress={() => navigation.navigate("ActivityPreferences")}
         >
-          back
-        </Text>
+          <View style={{ width: 22, height: 22 }}>
+            <Image
+              style={{
+                left: 30,
+                zIndex: 3,
+                width: 22,
+                height: 22,
+              }}
+              source={require("../icons/back.png")}
+            />
+          </View>
+        </TouchableOpacity>
         <Text style={{ textAlign: "center", padding: 20 }}>Progress Bar</Text>
       </View>
       <View style={styles.container}>
@@ -53,7 +65,7 @@ export default function Survey4({ navigation }) {
         </Text>
         <Text
           style={{
-            color: "#AFB1B6",
+            color: "#C8B2AD",
             fontSize: 12,
             textAlign: "center",
             marginTop: 40,
@@ -119,7 +131,7 @@ const styles = StyleSheet.create({
     top: -20,
   },
   button: {
-    backgroundColor: "#979797",
+    backgroundColor: "#F7A38E",
     borderRadius: 7,
     width: 304,
     height: 54,
@@ -138,5 +150,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     textAlign: "center",
     justifyContent: "center",
+    backgroundColor: "#fffefe",
   },
 });

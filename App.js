@@ -2,7 +2,7 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, SafeAreaView, Text, TextInput } from "react-native";
 import { Button } from "react-native";
 
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import SignUpPage from "./components/SignUpPage";
@@ -20,11 +20,19 @@ import FriendProfile from "./components/FriendProfile";
 const Stack = createNativeStackNavigator();
 
 export default function App({ navigation }) {
+  const MyTheme = {
+    ...DefaultTheme,
+    colors: {
+      ...DefaultTheme.colors,
+      background: "#FFFEFA",
+    },
+  };
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={MyTheme}>
       <Stack.Navigator
         screenOptions={{
           headerShown: false,
+          cardStyle: { backgroundColor: "#aaaaaa" },
         }}
       >
         <Stack.Screen name="SignUp" component={SignUpPage} />

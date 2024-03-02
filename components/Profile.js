@@ -8,11 +8,13 @@ import {
   Pressable,
   FlatList,
   TouchableOpacity,
+  Image,
 } from "react-native";
 import { SelectList } from "react-native-dropdown-select-list";
 import { useState } from "react";
 
 import Navbar from "./items/Navbar";
+import users from "./users.json";
 
 export default function Profile({ navigation, route }) {
   const { displayType } = route.params ?? {
@@ -33,6 +35,12 @@ export default function Profile({ navigation, route }) {
       setFriendsPage(false);
     }
   }
+
+  const mainUser = {
+    username: "McKenna Allard",
+    image: require("./images/profiles/McKenna2.jpeg"),
+    pfp: require("./images/profiles/McKenna.png"),
+  };
 
   const friendFilters = [
     { key: "1", value: "Filter 1" },
@@ -135,6 +143,7 @@ export default function Profile({ navigation, route }) {
       <Navbar navigation={navigation} setProfile={setProfile} />
       <ScrollView style={{ height: "100%" }}>
         <View style={mainStyles.userImage}>
+          <Image style={mainStyles.profileImage} source={mainUser.image} />
           <View style={mainStyles.userHeader}>
             <View
               style={{
@@ -153,9 +162,14 @@ export default function Profile({ navigation, route }) {
                   borderColor: "#AFB1B6",
                   borderWidth: 1,
                 }}
-              ></View>
+              >
+                <Image
+                  style={{ width: "100%", height: "100%", borderRadius: 50 }}
+                  source={mainUser.pfp}
+                />
+              </View>
               <View>
-                <Text>Username</Text>
+                <Text>{mainUser.username}</Text>
                 <Text>Preference</Text>
               </View>
             </View>
@@ -407,6 +421,11 @@ const mainStyles = StyleSheet.create({
     width: 414,
     height: 275,
     backgroundColor: "#D9D9D9",
+  },
+  profileImage: {
+    width: "100%",
+    height: "100%",
+    position: "absolute",
   },
   userHeader: {
     width: "100%",
