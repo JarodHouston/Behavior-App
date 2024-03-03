@@ -46,11 +46,39 @@ export default function Home({ navigation, route }) {
       venueDescription:
         "Held on the expansive lawns surrounding the iconic Griffith Observatory, this event offers breathtaking views of Los Angeles and the night sky. The event starts just after sunset, around 7:00 PM, providing a perfect blend of natural beauty and cosmic wonder.",
       image: require("./images/events/GriffithObservatory.png"),
+      registered: false,
+      passed: false,
+    },
+    {
+      id: 1, // 7
+      eventTitle: "Mindfulness and Wellness Retreat",
+      date: "Saturday, February 3",
+      time: "8 am - 4 pm PST",
+      price: 3,
+      eventDescription:
+        "A day dedicated to self-care, mindfulness, and holistic wellness. This event features yoga sessions, meditation workshops, motivational speakers, and wellness booths offering products and services related to health and well-being.",
+      venueDescription:
+        "Hosted at the serene Los Angeles County Arboretum and Botanic Garden, participants can connect with nature and find peace among the lush landscapes. The retreat runs from 8:00 AM to 4:00 PM.",
+      image: require("./images/events/WellnessRetreat.png"),
+      registered: false,
+      passed: false,
+    },
+    {
+      id: 2, // 8
+      eventTitle: "Indie Film Festival",
+      date: "Saturday, February 3",
+      time: "12 pm - 9 pm PST",
+      price: 3,
+      eventDescription:
+        "Celebrate the art of independent filmmaking with screenings of short films, documentaries, and feature-length movies from up-and-coming directors and producers. The festival includes Q&A sessions with filmmakers, panel discussions on the future of indie cinema, and networking events.",
+      venueDescription:
+        "The festival takes place at the historic Egyptian Theatre in Hollywood, offering a classic cinema experience. Screenings and events are scheduled throughout the day and evening, providing flexible options for attendees.",
+      image: require("./images/events/FilmFestival.png"),
       registered: true,
       passed: false,
     },
     {
-      id: 1,
+      id: 3, // 1
       eventTitle: "Echo Park Lake Sunrise Yoga",
       date: "Saturday, February 3",
       time: "6 am - 8 am PST",
@@ -64,7 +92,7 @@ export default function Home({ navigation, route }) {
       passed: false,
     },
     {
-      id: 2,
+      id: 4, // 2
       eventTitle: "Silverlake Yoga in the Park",
       date: "Saturday, February 3",
       time: "9 am - 10 am PST",
@@ -78,7 +106,63 @@ export default function Home({ navigation, route }) {
       passed: true,
     },
     {
-      id: 3,
+      id: 5, // 4
+      eventTitle: "Sunset Jazz Nights",
+      date: "Saturday, February 3",
+      time: "6 pm - 9 pm PST",
+      price: 3,
+      eventDescription:
+        "Enjoy an evening under the stars with some of LA's finest jazz musicians. This event features a lineup of local jazz bands and solo artists, bringing you a mix of classic jazz, contemporary, and fusion genres. Food and drinks are available from local vendors, creating a perfect ambiance for a relaxing evening.",
+      venueDescription:
+        "Held at The Getty Center's beautiful outdoor terrace, attendees can enjoy stunning views of Los Angeles while soaking in the soulful tunes. The event starts at 6:00 PM, just in time for a breathtaking sunset backdrop.",
+      image: require("./images/events/SunsetJazz.png"),
+      registered: false,
+      passed: false,
+    },
+    {
+      id: 6, // 5
+      eventTitle: "Tech Innovators Expo",
+      date: "Saturday, February 3",
+      time: "10 am - 5 pm PST",
+      price: 3,
+      eventDescription:
+        "A gathering of the brightest minds in the tech industry, showcasing the latest in tech innovations, startups, and digital trends. This event includes keynote speeches, panel discussions, and interactive workshops led by industry leaders and emerging entrepreneurs.",
+      venueDescription:
+        "Located at the Los Angeles Convention Center, this event spans multiple exhibition halls, providing ample space for demonstrations, networking, and hands-on experiences. The expo runs from 10:00 AM to 5:00 PM.",
+      image: require("./images/events/TechExpo.png"),
+      registered: true,
+      passed: false,
+    },
+    {
+      id: 7, // 6
+      eventTitle: "Culinary Carnival",
+      date: "Saturday, February 3",
+      time: "11 am - 10 pm PST",
+      price: 3,
+      eventDescription:
+        "A food lover's paradise, featuring a wide array of cuisines from around the world. This event highlights LA's diverse culinary scene, with food trucks, pop-up restaurants, and live cooking demonstrations by renowned chefs. Attendees can indulge in tasting sessions, cooking classes, and culinary competitions.",
+      venueDescription:
+        "Set in Grand Park, this outdoor event offers a festive atmosphere with plenty of seating areas and live music stages. The carnival is open from 11:00 AM to 10:00 PM, providing a full day of gastronomic exploration.",
+      image: require("./images/events/CulinaryCarnival.png"),
+      registered: false,
+      passed: false,
+    },
+    {
+      id: 8, // 9
+      eventTitle: "Urban Art Walk",
+      date: "Saturday, February 3",
+      time: "3 pm - 8 pm PST",
+      price: 3,
+      eventDescription:
+        "Explore the vibrant street art scene of LA with a guided tour through the city's most iconic murals, graffiti, and installations. This event also includes live art demonstrations, pop-up galleries, and discussions on the impact of urban art on community and culture.",
+      venueDescription:
+        "The art walk begins in the Arts District and winds through various neighborhoods, showcasing the work of both renowned and underground artists. The walk starts at 3:00 PM and concludes with an after-party at a local gallery.",
+      image: require("./images/events/UrbanArtWalk.png"),
+      registered: false,
+      passed: true,
+    },
+    {
+      id: 9, // 3
       eventTitle: "Puppy Yoga at the Pet Rescue Center",
       date: "Saturday, February 3",
       time: "9 am - 10 am PST",
@@ -89,7 +173,7 @@ export default function Home({ navigation, route }) {
         "Hosted in the outdoor play area of the pet rescue center, this event not only provides a delightful yoga experience but also raises awareness and support for animal adoption. The session begins at 10:00 AM, offering a perfect blend of exercise, play, and philanthropy.",
       image: require("./images/events/PuppyYoga.jpeg"),
       registered: false,
-      passed: true,
+      passed: false,
     },
   ];
 
@@ -148,11 +232,14 @@ export default function Home({ navigation, route }) {
 
   function selectActivity(id) {
     if (!activitySelected) {
-      if (displayType === "history" && id === 2) {
+      // if (displayType === "history" && id === 2) {
+      //   setAttendedEventPopup(true);
+      //   setReview("");
+      // } else if (displayType === "history" && id === 3) {
+      //   setMissedEventPopup(true);
+      // }
+      if (displayType === "history") {
         setAttendedEventPopup(true);
-        setReview("");
-      } else if (displayType === "history" && id === 3) {
-        setMissedEventPopup(true);
       }
       setActivitySelected(true);
       setSelectedId(id);
@@ -650,7 +737,9 @@ export default function Home({ navigation, route }) {
         {events.map((ev) => (
           <View key={ev.id}>
             {(!activitySelected || ev.id === selectedId) &&
-              (displayType === "default" ||
+              ((displayType === "default" &&
+                ev.registered === false &&
+                ev.passed === false) ||
                 (displayType === "history" && ev.passed) ||
                 (displayType === "registered" && ev.registered)) && (
                 <View>
@@ -665,6 +754,10 @@ export default function Home({ navigation, route }) {
                   >
                     {!activitySelected && (
                       <View style={styles.vendorTag}>
+                        <Image
+                          style={{ width: 22, height: 22 }}
+                          source={require("./icons/verified.png")}
+                        />
                         <Text>Verified Vendor</Text>
                       </View>
                     )}
@@ -693,6 +786,12 @@ export default function Home({ navigation, route }) {
                             justifyContent: "center",
                             alignItems: "center",
                             gap: 10,
+                            backgroundColor: "rgba(255, 255, 255, 0.75)",
+                            padding: 12,
+                            paddingLeft: 16,
+                            paddingRight: 16,
+                            left: -4,
+                            borderRadius: 15,
                           }}
                         >
                           <View
@@ -706,7 +805,7 @@ export default function Home({ navigation, route }) {
                           ></View>
                           <View
                             style={{
-                              height: "88%",
+                              height: 36,
                               justifyContent: "space-between",
                             }}
                           >
@@ -717,7 +816,7 @@ export default function Home({ navigation, route }) {
                           </View>
                         </View>
                         <Pressable style={eventStyles.followButton}>
-                          <Text style={{ color: "white" }}>Follow</Text>
+                          <Text>Follow</Text>
                         </Pressable>
                       </View>
                     )}
@@ -813,11 +912,15 @@ export default function Home({ navigation, route }) {
               <Text style={{ fontSize: 16, marginTop: 16, lineHeight: 22 }}>
                 {events.at(selectedId).venueDescription}
               </Text>
+              <Image
+                style={{ width: 300, height: 100, marginTop: 24 }}
+                source={require("./images/other/GoogleMaps.png")}
+              />
               <Text
                 style={{
                   fontSize: 16,
                   textDecorationLine: "underline",
-                  marginTop: 30,
+                  marginTop: 20,
                 }}
               >
                 View in Google Maps
@@ -884,6 +987,9 @@ const styles = StyleSheet.create({
     zIndex: 2,
     width: 161,
     height: 38,
+    display: "flex",
+    flexDirection: "row",
+    gap: 8,
     justifyContent: "center",
     alignItems: "center",
     position: "relative",
@@ -930,7 +1036,7 @@ const styles = StyleSheet.create({
   registeredFriends: {
     height: 62,
     zIndex: -1,
-    backgroundColor: "#EFEFF0",
+    backgroundColor: "#FDF2F5",
     marginBottom: 20,
     display: "flex",
     flexDirection: "row",
@@ -1017,15 +1123,13 @@ const eventStyles = StyleSheet.create({
     top: 30,
     marginLeft: "auto",
     marginRight: "auto",
-    // top: -200,
-    // left: -25,
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
   },
   followButton: {
-    backgroundColor: "#979797",
+    backgroundColor: "#F7C1CD",
     width: 99,
     height: 32,
     justifyContent: "center",
@@ -1066,7 +1170,7 @@ const popUpStyles = StyleSheet.create({
   ticketInput: {
     width: 67,
     height: 40,
-    backgroundColor: "#AFB1B6",
+    backgroundColor: "#F7A38E",
     borderRadius: 10,
     justifyContent: "center",
     textAlign: "center",
@@ -1075,7 +1179,7 @@ const popUpStyles = StyleSheet.create({
   confirmButton: {
     width: "100%",
     height: 54,
-    backgroundColor: "#979797",
+    backgroundColor: "#F88E73",
     justifyContent: "center",
     alignItems: "center",
     marginTop: "auto",

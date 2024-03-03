@@ -45,20 +45,6 @@ const Navbar = ({ navigation, resetHome, setProfile }) => {
               source={require("../icons/home.png")}
             />
           </Pressable>
-          {/* <Pressable onPress={() => setMenuDropdown(!menuDropdown)}>
-          <Text>Menu</Text>
-          {menuDropdown && (
-            <View style={{ display: "flex", flexDirection: "row", gap: 20 }}>
-              <Text onPress={() => navigation.navigate("Home")}>Home</Text>
-              <Text onPress={() => navigation.navigate("Profile")}>
-                Profile
-              </Text>
-              <Text onPress={() => navigation.navigate("SignUp")}>
-                Sign Out
-              </Text>
-            </View>
-          )}
-        </Pressable> */}
           <Pressable onPress={() => toggleHamburgerMenu(!hamburgerMenu)}>
             <Image
               style={styles.hamburgerIcon}
@@ -81,8 +67,8 @@ const Navbar = ({ navigation, resetHome, setProfile }) => {
                 alignItems: "flex-start",
               }}
             >
-              <Text
-                style={styles.menuItem}
+              <Pressable
+                style={styles.menuItemContainer}
                 onPress={() => {
                   navigation.navigate("Profile", {
                     displayType: "default",
@@ -96,10 +82,14 @@ const Navbar = ({ navigation, resetHome, setProfile }) => {
                   }
                 }}
               >
-                Profile
-              </Text>
-              <Text
-                style={styles.menuItem}
+                <Image
+                  style={styles.menuItemIcon}
+                  source={require("../icons/user.png")}
+                />
+                <Text style={styles.menuItem}>Profile</Text>
+              </Pressable>
+              <Pressable
+                style={styles.menuItemContainer}
                 onPress={() => {
                   navigation.navigate("Home", {
                     displayType: "registered",
@@ -110,10 +100,14 @@ const Navbar = ({ navigation, resetHome, setProfile }) => {
                   toggleHamburgerMenu(false);
                 }}
               >
-                Upcoming Events
-              </Text>
-              <Text
-                style={styles.menuItem}
+                <Image
+                  style={styles.menuItemIcon}
+                  source={require("../icons/next-week.png")}
+                />
+                <Text style={styles.menuItem}>Upcoming Events</Text>
+              </Pressable>
+              <Pressable
+                style={styles.menuItemContainer}
                 onPress={() => {
                   navigation.navigate("Profile", {
                     displayType: "settings",
@@ -127,10 +121,14 @@ const Navbar = ({ navigation, resetHome, setProfile }) => {
                   }
                 }}
               >
-                Settings
-              </Text>
-              <Text
-                style={styles.menuItem}
+                <Image
+                  style={styles.menuItemIcon}
+                  source={require("../icons/settings.png")}
+                />
+                <Text style={styles.menuItem}>Settings</Text>
+              </Pressable>
+              <Pressable
+                style={styles.menuItemContainer}
                 onPress={() => {
                   navigation.navigate("SignUp");
                   if (resetHome) {
@@ -139,8 +137,12 @@ const Navbar = ({ navigation, resetHome, setProfile }) => {
                   toggleHamburgerMenu(false);
                 }}
               >
-                Sign Out
-              </Text>
+                <Image
+                  style={styles.menuItemIcon}
+                  source={require("../icons/sign-out.png")}
+                />
+                <Text style={styles.menuItem}>Sign Out</Text>
+              </Pressable>
             </View>
           </View>
         )}
@@ -163,10 +165,22 @@ const styles = StyleSheet.create({
     paddingBottom: 30,
     borderBottomLeftRadius: 15,
   },
+  menuItemContainer: {
+    display: "flex",
+    flexDirection: "row",
+    gap: 14,
+    justifyContent: "flex-start",
+    alignItems: "center",
+    marginTop: 20,
+    width: "100%",
+  },
   menuItem: {
     textAlign: "center",
     fontSize: 19,
-    marginTop: 20,
+  },
+  menuItemIcon: {
+    width: 22,
+    height: 22,
   },
   homeIcon: {
     width: iconSize,

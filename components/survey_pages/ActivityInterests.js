@@ -23,41 +23,49 @@ export default function Survey2({ navigation }) {
       id: 1,
       hobbieName: "Yoga",
       selected: false,
+      image: require("../images/activity-icons/yoga-position.png"),
     },
     {
       id: 2,
       hobbieName: "Hiking",
       selected: false,
+      image: require("../images/activity-icons/hiking.png"),
     },
     {
       id: 3,
       hobbieName: "Movies",
       selected: false,
+      image: require("../images/activity-icons/movie-clapper-open.png"),
     },
     {
       id: 4,
       hobbieName: "Eating & Drinking",
       selected: false,
+      image: require("../images/activity-icons/restaurant.png"),
     },
     {
       id: 5,
       hobbieName: "Water Sports",
       selected: false,
+      image: require("../images/activity-icons/surfing.png"),
     },
     {
       id: 6,
-      hobbieName: "Fitness & Sports",
+      hobbieName: "Fitness",
       selected: false,
+      image: require("../images/activity-icons/running.png"),
     },
     {
       id: 7,
       hobbieName: "Crafting",
       selected: false,
+      image: require("../images/activity-icons/paint.png"),
     },
     {
       id: 8,
       hobbieName: "Live Events",
       selected: false,
+      image: require("../images/activity-icons/concert.png"),
     },
   ]);
   const handlePress = (id) => {
@@ -67,48 +75,7 @@ export default function Survey2({ navigation }) {
       );
     });
   };
-  // let hobbies = [
-  //   {
-  //     id: 1,
-  //     hobbieName: "Yoga",
-  //     selected: false,
-  //   },
-  //   {
-  //     id: 2,
-  //     hobbieName: "Hiking",
-  //     selected: false,
-  //   },
-  //   {
-  //     id: 3,
-  //     hobbieName: "Movies",
-  //     selected: false,
-  //   },
-  //   {
-  //     id: 4,
-  //     hobbieName: "Eating & Drinking",
-  //     selected: false,
-  //   },
-  //   {
-  //     id: 5,
-  //     hobbieName: "Crafting",
-  //     selected: false,
-  //   },
-  //   {
-  //     id: 6,
-  //     hobbieName: "Fitness & Sports",
-  //     selected: false,
-  //   },
-  //   {
-  //     id: 7,
-  //     hobbieName: "Crafting",
-  //     selected: false,
-  //   },
-  //   {
-  //     id: 8,
-  //     hobbieName: "Live Events",
-  //     selected: false,
-  //   },
-  // ];
+
   return (
     <SafeAreaView style={{ height: "100%" }}>
       <View style={{ justifyContent: "center" }}>
@@ -153,10 +120,14 @@ export default function Survey2({ navigation }) {
           <Pressable
             style={[
               styles.hobbyCard,
-              item.selected ? { borderColor: "black", borderWidth: 2.3 } : {},
+              item.selected ? { borderColor: "black", borderWidth: 3 } : {},
             ]}
             onPress={() => handlePress(item.id)}
           >
+            <Image
+              style={{ width: 60, height: 60, top: -10 }}
+              source={item.image}
+            />
             <View style={styles.hobbyTitle}>
               <Text style={{ color: "white", fontSize: 15 }}>
                 {item.hobbieName}
@@ -198,17 +169,17 @@ const styles = StyleSheet.create({
   hobbyCard: {
     width: 177,
     height: 128,
-    backgroundColor: "#FFD2DC",
+    backgroundColor: "#FFE8E3",
     justifyContent: "flex-end",
     alignItems: "center",
-    borderColor: "#F8B0C0",
+    borderColor: "#F889A2",
     borderWidth: 2,
     borderRadius: 5,
     margin: 6,
     paddingBottom: 10,
   },
   hobbyTitle: {
-    backgroundColor: "#979797",
+    backgroundColor: "#FA8366",
     //alignSelf: "flex-start",
     //width: 108,
     paddingLeft: 11,
