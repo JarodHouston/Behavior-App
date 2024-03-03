@@ -40,8 +40,8 @@ export default function Profile({ navigation, route }) {
 
   const mainUser = {
     username: "McKenna Allard",
-    image: require("./images/profiles/McKenna2.jpeg"),
-    pfp: require("./images/profiles/McKenna.png"),
+    // image: require("./images/profiles/McKenna2.jpeg"),
+    image: require("./images/profiles/McKenna3.png"),
   };
 
   const friendFilters = [
@@ -73,56 +73,122 @@ export default function Profile({ navigation, route }) {
   ];
   const activityList = [
     {
-      id: 1,
+      id: 1, // 8
+      eventTitle: "Indie Film Festival",
+      date: "Saturday, February 3",
+      time: "12 pm - 9 pm PST",
+      price: 3,
+      eventDescription:
+        "Celebrate the art of independent filmmaking with screenings of short films, documentaries, and feature-length movies from up-and-coming directors and producers. The festival includes Q&A sessions with filmmakers, panel discussions on the future of indie cinema, and networking events.",
+      venueDescription:
+        "The festival takes place at the historic Egyptian Theatre in Hollywood, offering a classic cinema experience. Screenings and events are scheduled throughout the day and evening, providing flexible options for attendees.",
+      image: require("./images/events/FilmFestival.png"),
+      registered: true,
+      passed: false,
     },
     {
-      id: 2,
+      id: 2, // 1
+      eventTitle: "Echo Park Lake Sunrise Yoga",
+      date: "Saturday, February 3",
+      time: "6 am - 8 am PST",
+      price: 1,
+      eventDescription:
+        "Welcome the new day with a rejuvenating yoga session by the serene waters of Echo Park Lake. This early morning class focuses on mindful movements and breathwork, set to the calming sounds of nature, creating a peaceful start to your day.",
+      venueDescription:
+        "Taking place on the north side of Echo Park Lake, participants will enjoy a scenic view of the water and downtown LA skyline. The session begins at 6:00 AM, allowing yogis to enjoy the tranquil beauty of the park at dawn.",
+      image: require("./images/events/EchoPark.png"),
+      registered: true,
+      passed: false,
     },
     {
-      id: 3,
+      id: 3, // 5
+      eventTitle: "Tech Innovators Expo",
+      date: "Saturday, February 3",
+      time: "10 am - 5 pm PST",
+      price: 3,
+      eventDescription:
+        "A gathering of the brightest minds in the tech industry, showcasing the latest in tech innovations, startups, and digital trends. This event includes keynote speeches, panel discussions, and interactive workshops led by industry leaders and emerging entrepreneurs.",
+      venueDescription:
+        "Located at the Los Angeles Convention Center, this event spans multiple exhibition halls, providing ample space for demonstrations, networking, and hands-on experiences. The expo runs from 10:00 AM to 5:00 PM.",
+      image: require("./images/events/TechExpo.png"),
+      registered: true,
+      passed: false,
     },
     {
-      id: 4,
+      id: 4, // 6
+      eventTitle: "Culinary Carnival",
+      date: "Saturday, February 3",
+      time: "11 am - 10 pm PST",
+      price: 3,
+      eventDescription:
+        "A food lover's paradise, featuring a wide array of cuisines from around the world. This event highlights LA's diverse culinary scene, with food trucks, pop-up restaurants, and live cooking demonstrations by renowned chefs. Attendees can indulge in tasting sessions, cooking classes, and culinary competitions.",
+      venueDescription:
+        "Set in Grand Park, this outdoor event offers a festive atmosphere with plenty of seating areas and live music stages. The carnival is open from 11:00 AM to 10:00 PM, providing a full day of gastronomic exploration.",
+      image: require("./images/events/CulinaryCarnival.png"),
+      registered: true,
+      passed: false,
     },
   ];
   const pastActivityList = [
     {
-      id: 1,
+      id: 1, // 2
+      eventTitle: "Silverlake Yoga in the Park",
+      date: "Saturday, February 3",
+      time: "9 am - 10 am PST",
+      price: 2,
+      eventDescription:
+        "Join a community of yoga enthusiasts for an outdoor session in the heart of Silverlake. This event caters to all levels, from beginners to advanced practitioners, and offers a variety of yoga styles. After the session, enjoy mingling with fellow yogis in one of LA's most vibrant neighborhoods.",
+      venueDescription:
+        "This yoga gathering is located in Silver Lake Meadow, a spacious and grassy area known for its relaxed atmosphere. The event starts at 9:00 AM, making it an ideal morning activity that leaves the rest of the day open for exploration.",
+      image: require("./images/events/Silverlake.png"),
+      registered: false,
+      passed: true,
     },
     {
-      id: 2,
-    },
-    {
-      id: 3,
-    },
-    {
-      id: 4,
+      id: 2, // 9
+      eventTitle: "Urban Art Walk",
+      date: "Saturday, February 3",
+      time: "3 pm - 8 pm PST",
+      price: 3,
+      eventDescription:
+        "Explore the vibrant street art scene of LA with a guided tour through the city's most iconic murals, graffiti, and installations. This event also includes live art demonstrations, pop-up galleries, and discussions on the impact of urban art on community and culture.",
+      venueDescription:
+        "The art walk begins in the Arts District and winds through various neighborhoods, showcasing the work of both renowned and underground artists. The walk starts at 3:00 PM and concludes with an after-party at a local gallery.",
+      image: require("./images/events/UrbanArtWalk.png"),
+      registered: false,
+      passed: true,
     },
   ];
   const friends = [
     {
       id: 1,
-      name: "Person",
+      name: "Giulia",
+      image: require("./images/profiles/Giulia.png"),
+      activity: "Outdoors Running Enthusiast",
     },
     {
       id: 2,
-      name: "Person",
+      name: "Kevin",
+      image: require("./images/profiles/Kevin.png"),
+      activity: "Nature lover",
     },
     {
       id: 3,
-      name: "Person",
+      name: "Lincoln",
+      image: require("./images/profiles/Lincoln.png"),
+      activity: "Food Connoisseur",
     },
     {
       id: 4,
-      name: "Person",
+      name: "Richard",
+      image: require("./images/profiles/Richard.png"),
+      activity: "Aspiring future coffeeshop owner",
     },
     {
       id: 5,
-      name: "Person",
-    },
-    {
-      id: 6,
-      name: "Person",
+      name: "Jarod",
+      image: require("./images/profiles/Jarod.png"),
+      activity: "Coding Party",
     },
   ];
   const recommendedFriends = [
@@ -148,8 +214,8 @@ export default function Profile({ navigation, route }) {
     <View>
       <Navbar navigation={navigation} setProfile={setProfile} />
       <ScrollView style={{ height: "100%" }}>
-        <View style={mainStyles.userImage}>
-          <Image style={mainStyles.profileImage} source={mainUser.image} />
+        <View>
+          {/* <Image style={mainStyles.profileImage} source={mainUser.image} /> */}
           <View style={mainStyles.userHeader}>
             <View
               style={{
@@ -157,26 +223,28 @@ export default function Profile({ navigation, route }) {
                 flexDirection: "row",
                 justifyContent: "center",
                 alignItems: "center",
-                gap: 20,
+                gap: 10,
               }}
             >
               <View
                 style={{
-                  width: 52,
-                  height: 52,
+                  width: 70,
+                  height: 70,
                   borderRadius: 50,
-                  borderColor: "#AFB1B6",
+                  borderColor: "#FA8366",
                   borderWidth: 1,
                 }}
               >
                 <Image
                   style={{ width: "100%", height: "100%", borderRadius: 50 }}
-                  source={mainUser.pfp}
+                  source={mainUser.image}
                 />
               </View>
-              <View>
-                <Text>{mainUser.username}</Text>
-                <Text>Preference</Text>
+              <View style={{ gap: 4 }}>
+                <Text style={{ fontWeight: "bold", fontSize: 15 }}>
+                  {mainUser.username}
+                </Text>
+                <Text>Concert Fangirl</Text>
               </View>
             </View>
             {!editProfile && displayType !== "settings" && (
@@ -241,7 +309,13 @@ export default function Profile({ navigation, route }) {
                 {activityList.map((activity) => {
                   return (
                     <View key={activity.id} style={mainStyles.activityCard}>
-                      <Text>Details</Text>
+                      <Image
+                        style={mainStyles.activityImage}
+                        source={activity.image}
+                      />
+                      <View style={mainStyles.activityDetails}>
+                        <Text>Details</Text>
+                      </View>
                     </View>
                   );
                 })}
@@ -259,7 +333,13 @@ export default function Profile({ navigation, route }) {
                 {pastActivityList.map((activity) => {
                   return (
                     <View key={activity.id} style={mainStyles.activityCard}>
-                      <Text>Details</Text>
+                      <Image
+                        style={mainStyles.activityImage}
+                        source={activity.image}
+                      />
+                      <View style={mainStyles.activityDetails}>
+                        <Text>Details</Text>
+                      </View>
                     </View>
                   );
                 })}
@@ -281,13 +361,27 @@ export default function Profile({ navigation, route }) {
                       activeOpacity={1}
                       key={friend.id}
                     >
-                      <View style={mainStyles.friendCard}>
-                        <View style={mainStyles.friendProfile}></View>
+                      <View style={[mainStyles.friendCard, {}]}>
+                        {/* <View style={mainStyles.friendProfile}></View> */}
+                        <Image
+                          style={mainStyles.friendProfile}
+                          source={friend.image}
+                        />
                         <View style={{ justifyContent: "center" }}>
-                          <Text>{friend.name}</Text>
-                          <View style={{ flexDirection: "row", gap: 5 }}>
-                            <Text>Activity</Text>
-                            <Text>Expert</Text>
+                          <Text style={{ fontWeight: "bold" }}>
+                            {friend.name}
+                          </Text>
+                          <View
+                            style={{
+                              // flexDirection: "row",
+                              gap: 5,
+                              width: 120,
+                              height: 20,
+                            }}
+                          >
+                            <Text numberOfLines={1} style={{ flex: 1 }}>
+                              {friend.activity}
+                            </Text>
                           </View>
                         </View>
                       </View>
@@ -497,7 +591,7 @@ const mainStyles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginTop: 20,
+    marginTop: 30,
     paddingLeft: 25,
     paddingRight: 50,
   },
@@ -508,6 +602,7 @@ const mainStyles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#F7C1CD",
     borderRadius: 8,
+    marginLeft: 20,
   },
   badge: {
     width: 125,
@@ -553,37 +648,54 @@ const mainStyles = StyleSheet.create({
   activityCard: {
     width: 176,
     height: 152,
-    backgroundColor: "#D9D9D9",
-    borderColor: "#AFB1B6",
-    borderWidth: 2,
     borderRadius: 8,
+    backgroundColor: "#D9D9D9",
     justifyContent: "flex-end",
     alignItems: "flex-end",
-    paddingBottom: 8,
-    paddingRight: 16,
+  },
+  activityImage: {
+    position: "absolute",
+    width: 176,
+    height: 152,
+    borderWidth: 1.5,
+    borderRadius: 8,
+    borderColor: "#794436",
+  },
+  activityDetails: {
+    marginBottom: 8,
+    marginRight: 12,
+    backgroundColor: "rgba(255, 255, 255, 0.75)",
+    borderRadius: 8,
+    justifyContent: "center",
+    alignItems: "center",
+    width: 70,
+    height: 22,
   },
   friendContainer: {
     flexDirection: "row",
     flexWrap: "wrap",
-    justifyContent: "center",
+    justifyContent: "flex-start",
     gap: 16,
     marginTop: 12,
     marginBottom: 32,
     left: -8,
+    marginLeft: 30,
   },
   friendCard: {
     width: 158,
     height: 48,
     display: "flex",
     flexDirection: "row",
-    justifyContent: "center",
+    justifyContent: "flex-start",
     alignItems: "center",
     gap: 8,
+    paddingLeft: 10,
+    //backgroundColor: "blue",
   },
   friendProfile: {
-    backgroundColor: "D9D9D9",
-    width: 29,
-    height: 29,
+    // backgroundColor: "D9D9D9",
+    width: 42,
+    height: 42,
     borderColor: "#AFB1B6",
     borderWidth: 1,
     borderRadius: 50,

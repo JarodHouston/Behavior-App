@@ -135,7 +135,7 @@ export default function Survey1({ navigation }) {
             <Image
               style={{
                 position: "absolute",
-                left: 30,
+                left: 24,
                 zIndex: 3,
                 width: 22,
                 height: 22,
@@ -144,8 +144,12 @@ export default function Survey1({ navigation }) {
             />
           </View>
         </TouchableOpacity>
-
-        <Text style={{ textAlign: "center", padding: 20 }}>Progress Bar</Text>
+        <View style={{ padding: 20 }}>
+          <View style={styles.progressBar}>
+            <View style={styles.progressFill}></View>
+          </View>
+        </View>
+        {/* <Text style={{ textAlign: "center", padding: 20 }}>Progress Bar</Text> */}
       </View>
       <View style={{ alignItems: "center" }}>
         <Text
@@ -407,11 +411,24 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderWidth: 1,
-    borderColor: "#FFCA93",
+    borderColor: "#FA9B84",
   },
   selectedPreference: {
     borderColor: "black",
     borderWidth: 2,
     zIndex: 2,
+  },
+  progressBar: {
+    width: 302,
+    height: 8,
+    backgroundColor: "#FFEAF0",
+    borderRadius: 50,
+    marginLeft: 40,
+  },
+  progressFill: {
+    width: 60,
+    height: 8,
+    backgroundColor: "#C35D44",
+    borderRadius: 50,
   },
 });
