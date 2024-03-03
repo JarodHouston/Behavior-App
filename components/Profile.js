@@ -25,6 +25,8 @@ export default function Profile({ navigation, route }) {
   const [friendsPage, setFriendsPage] = useState(false);
   const [friendFilterOption, setFriendFilterOption] = useState("");
 
+  const settingsIconSize = 25;
+
   function setProfile(state) {
     if (state === "default") {
       setEditProfile(false);
@@ -50,19 +52,23 @@ export default function Profile({ navigation, route }) {
   const badges = [
     {
       id: 1,
-      title: "Master",
+      title: "Explorer",
+      image: require("./badges/OutdoorsIcon.png"),
     },
     {
       id: 2,
-      title: "Explorer",
+      title: "Creative",
+      image: require("./badges/ArtIcon.png"),
     },
     {
       id: 3,
-      title: "Enthusiast",
+      title: "Concert",
+      image: require("./badges/SingingIcon.webp"),
     },
     {
       id: 4,
-      title: "Streak",
+      title: "Zen",
+      image: require("./badges/YogaIcon.png"),
     },
   ];
   const activityList = [
@@ -181,7 +187,20 @@ export default function Profile({ navigation, route }) {
                   setFriendsPage(false);
                 }}
               >
-                <Text>Edit Profile</Text>
+                <View
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    gap: 12,
+                    alignItems: "center",
+                  }}
+                >
+                  <Image
+                    style={{ width: 22, height: 22 }}
+                    source={require("./icons/edit-text.png")}
+                  />
+                  <Text>Edit Profile</Text>
+                </View>
               </Pressable>
             )}
           </View>
@@ -206,6 +225,7 @@ export default function Profile({ navigation, route }) {
                   showsHorizontalScrollIndicator={false}
                   renderItem={({ item }) => (
                     <View style={mainStyles.badge}>
+                      <Image style={mainStyles.badgeIcon} source={item.image} />
                       <View style={mainStyles.badgeTitle}>
                         <Text style={{ fontSize: 15, color: "white" }}>
                           {item.title}
@@ -284,18 +304,60 @@ export default function Profile({ navigation, route }) {
         {(editProfile || displayType === "settings") && (
           <View>
             <Text style={mainStyles.sectionTitle}>Account Settings</Text>
-            <Text style={editStyles.option}>E-mail</Text>
-            <Text style={editStyles.option}>Mobile phone</Text>
+            <View style={editStyles.optionContainer}>
+              <Image
+                style={{ width: settingsIconSize, height: settingsIconSize }}
+                source={require("./icons/mail.png")}
+              />
+              <Text style={editStyles.option}>E-mail</Text>
+            </View>
+            <View style={editStyles.optionContainer}>
+              <Image
+                style={{ width: settingsIconSize, height: settingsIconSize }}
+                source={require("./icons/telephone.png")}
+              />
+              <Text style={editStyles.option}>Mobile phone</Text>
+            </View>
 
             <Text style={editStyles.sectionTitle}>Preference Settings</Text>
-            <Text style={editStyles.option}>Frequency of activity</Text>
-            <Text style={editStyles.option}>Edit activity preferences</Text>
+            <View style={editStyles.optionContainer}>
+              <Image
+                style={{ width: settingsIconSize, height: settingsIconSize }}
+                source={require("./icons/padlock.png")}
+              />
+              <Text style={editStyles.option}>Frequency of activity</Text>
+            </View>
+            <View style={editStyles.optionContainer}>
+              <Image
+                style={{ width: settingsIconSize, height: settingsIconSize }}
+                source={require("./icons/unlock.png")}
+              />
+              <Text style={editStyles.option}>Edit activity preferences</Text>
+            </View>
 
             <Text style={editStyles.sectionTitle}>Privacy Settings</Text>
-            <Text style={editStyles.option}>Reviews I wrote</Text>
-            <Text style={editStyles.option}>Badges</Text>
+            <View style={editStyles.optionContainer}>
+              <Image
+                style={{ width: settingsIconSize, height: settingsIconSize }}
+                source={require("./icons/edit.png")}
+              />
+              <Text style={editStyles.option}>Reviews I wrote</Text>
+            </View>
+            <View style={editStyles.optionContainer}>
+              <Image
+                style={{ width: settingsIconSize, height: settingsIconSize }}
+                source={require("./icons/grid.png")}
+              />
+              <Text style={editStyles.option}>Badges</Text>
+            </View>
             <Pressable onPress={() => setEditProfile(false)}>
-              <Text style={editStyles.option}>Profile</Text>
+              <View style={editStyles.optionContainer}>
+                <Image
+                  style={{ width: settingsIconSize, height: settingsIconSize }}
+                  source={require("./icons/user.png")}
+                />
+                <Text style={editStyles.option}>Profile</Text>
+              </View>
             </Pressable>
           </View>
         )}
@@ -378,6 +440,7 @@ export default function Profile({ navigation, route }) {
                     <TouchableOpacity
                       onPress={() => navigation.navigate("FriendProfile")}
                       activeOpacity={1}
+                      key={friend.id}
                     >
                       <View key={friend.id} style={mainStyles.friendCard}>
                         <View style={mainStyles.friendProfile}></View>
@@ -439,20 +502,19 @@ const mainStyles = StyleSheet.create({
     paddingRight: 50,
   },
   editButton: {
-    width: 123,
+    width: 133,
     height: 32,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#AFB1B6",
+    backgroundColor: "#F7C1CD",
     borderRadius: 8,
   },
   badge: {
-    backgroundColor: "#D9D9D9",
     width: 125,
     height: 125,
     borderWidth: 2,
     borderRadius: 8,
-    borderColor: "#AFB1B6",
+    borderColor: "#F7A38E",
     marginLeft: 6,
     marginRight: 6,
     alignItems: "center",
@@ -460,12 +522,24 @@ const mainStyles = StyleSheet.create({
     paddingBottom: 8,
   },
   badgeTitle: {
-    backgroundColor: "#61646B",
+    backgroundColor: "#F89880",
     width: 107,
     height: 23,
     borderRadius: 5,
     justifyContent: "center",
     alignItems: "center",
+    borderColor: "#FA8366",
+    borderWidth: 2,
+  },
+  badgeIcon: {
+    width: "100%",
+    height: "100%",
+    position: "absolute",
+    width: 125,
+    height: 125,
+    borderWidth: 2,
+    borderRadius: 8,
+    borderColor: "#794436",
   },
   activityContainer: {
     marginTop: 24,
@@ -525,8 +599,15 @@ const editStyles = StyleSheet.create({
   },
   option: {
     fontSize: 18,
+  },
+  optionContainer: {
     marginTop: 18,
     marginLeft: 38,
+    display: "flex",
+    flexDirection: "row",
+    gap: 20,
+    justifyContent: "flex-start",
+    alignItems: "center",
   },
 });
 

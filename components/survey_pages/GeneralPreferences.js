@@ -407,7 +407,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderWidth: 1,
-    borderColor: "#AFB1B6",
+    borderColor: "#FFCA93",
   },
   selectedPreference: {
     borderColor: "black",
