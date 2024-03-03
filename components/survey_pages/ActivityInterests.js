@@ -86,7 +86,7 @@ export default function Survey2({ navigation }) {
           <View style={{ width: 22, height: 22 }}>
             <Image
               style={{
-                left: 30,
+                left: 24,
                 zIndex: 3,
                 width: 22,
                 height: 22,
@@ -95,7 +95,11 @@ export default function Survey2({ navigation }) {
             />
           </View>
         </TouchableOpacity>
-        <Text style={{ textAlign: "center", padding: 20 }}>Progress Bar</Text>
+        <View style={{ padding: 20 }}>
+          <View style={styles.progressBar}>
+            <View style={styles.progressFill}></View>
+          </View>
+        </View>
       </View>
       <Text style={{ textAlign: "center", fontSize: 24 }}>
         What types of activities are most interesting to you?
@@ -169,7 +173,7 @@ const styles = StyleSheet.create({
   hobbyCard: {
     width: 177,
     height: 128,
-    backgroundColor: "#FFE8E3",
+    backgroundColor: "#FFECE4",
     justifyContent: "flex-end",
     alignItems: "center",
     borderColor: "#F889A2",
@@ -188,5 +192,18 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 5,
+  },
+  progressBar: {
+    width: 302,
+    height: 8,
+    backgroundColor: "#FFEAF0",
+    borderRadius: 50,
+    marginLeft: 40,
+  },
+  progressFill: {
+    width: 210,
+    height: 8,
+    backgroundColor: "#C35D44",
+    borderRadius: 50,
   },
 });

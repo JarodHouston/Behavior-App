@@ -11,22 +11,25 @@ export default function AccountCreated({ navigation }) {
               marginRight: "auto",
               fontSize: 30,
               fontWeight: "bold",
+              width: 200,
+              textAlign: "center",
             }}
           >
-            Account Created!
+            You are almost done!
           </Text>
           <Text
             style={{
-              marginLeft: 30,
-              marginRight: 30,
-              marginTop: 14,
+              marginLeft: "auto",
+              marginRight: "auto",
+              marginTop: 20,
               fontSize: 15,
               textAlign: "center",
               lineHeight: 26,
+              width: 300,
             }}
           >
-            Your account has been created successfully! Continue to start using
-            app.
+            We want to get to know you! Help us personalize your experience by
+            answering a quick questionnaire.
           </Text>
         </View>
         <View>
@@ -40,24 +43,24 @@ export default function AccountCreated({ navigation }) {
             style={{
               marginLeft: 50,
               marginRight: 50,
-              marginTop: 16,
+              marginTop: 26,
               fontSize: 12,
               textAlign: "center",
               lineHeight: 22,
             }}
           >
-            By clicking start, you agree to our{" "}
-            <Text
-              style={{ fontWeight: "bold", textDecorationLine: "underline" }}
-            >
-              Privacy Policy
-            </Text>{" "}
-            our{" "}
-            <Text
-              style={{ fontWeight: "bold", textDecorationLine: "underline" }}
-            >
-              Terms and Conditions
-            </Text>
+            Not ready to personalize your experience yet?
+          </Text>
+          <Text
+            style={{
+              textAlign: "center",
+              textDecorationLine: "underline",
+              fontSize: 12,
+              marginTop: 6,
+            }}
+            onPress={() => navigation.navigate("Home")}
+          >
+            Skip for now
           </Text>
         </View>
       </SafeAreaView>

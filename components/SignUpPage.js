@@ -10,6 +10,7 @@ import {
 import { Switch, Pressable } from "react-native";
 
 export default function SignUpPage({ navigation }) {
+  const [signingIn, setSigningIn] = useState(false);
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -24,18 +25,20 @@ export default function SignUpPage({ navigation }) {
         source={require("./icons/HobbyHopperLogo.png")}
       />
       <View style={inputStyles.inputContainer}>
-        <View>
-          <Text style={inputStyles.inputLabel}>Email Address</Text>
-          <TextInput
-            style={inputStyles.input}
-            onChangeText={(text) => setEmail(text)}
-            onSubmitEditing={() => {
-              alert(`Your message is ${email}`);
-            }}
-            placeholder="Input Text"
-            value={email}
-          />
-        </View>
+        {!signingIn && (
+          <View>
+            <Text style={inputStyles.inputLabel}>Email Address</Text>
+            <TextInput
+              style={inputStyles.input}
+              onChangeText={(text) => setEmail(text)}
+              onSubmitEditing={() => {
+                alert(`Your message is ${email}`);
+              }}
+              placeholder="Input Text"
+              value={email}
+            />
+          </View>
+        )}
         <View>
           <Text style={inputStyles.inputLabel}>Username</Text>
           <TextInput
@@ -61,25 +64,39 @@ export default function SignUpPage({ navigation }) {
           />
         </View>
       </View>
-      <View style={styles.toggleContainer}>
-        <Switch
-          title="Click"
-          value={toggleCheckBox}
-          onValueChange={() => setToggleCheckBox(!toggleCheckBox)}
-        />
-        <Text style={{ marginLeft: 8, fontSize: 12 }}>
-          By creating your account you have to agree to our{" "}
-          <Text style={{ fontWeight: "bold", textDecorationLine: "underline" }}>
-            Terms and Conditions
+      {!signingIn && (
+        <View style={styles.toggleContainer}>
+          <Switch
+            title="Click"
+            value={toggleCheckBox}
+            onValueChange={() => setToggleCheckBox(!toggleCheckBox)}
+          />
+          <Text style={{ marginLeft: 8, fontSize: 12 }}>
+            By creating your account you have to agree to our{" "}
+            <Text
+              style={{ fontWeight: "bold", textDecorationLine: "underline" }}
+            >
+              Terms and Conditions
+            </Text>
+            .
           </Text>
-          .
-        </Text>
-      </View>
+        </View>
+      )}
       <Pressable
         style={[styles.button, { marginTop: 24 }]}
-        onPress={() => navigation.navigate("AccountCreated")}
+        onPress={() => {
+          if (!signingIn) {
+            navigation.navigate("AccountCreated");
+          } else {
+            navigation.navigate("Home");
+          }
+        }}
       >
-        <Text style={styles.buttonText}>Create account</Text>
+        {!signingIn ? (
+          <Text style={styles.buttonText}>Create account</Text>
+        ) : (
+          <Text style={styles.buttonText}>Log In</Text>
+        )}
       </Pressable>
       <Text
         style={{
@@ -89,14 +106,29 @@ export default function SignUpPage({ navigation }) {
           fontSize: 12,
         }}
       >
-        Already have an account? -{" "}
-        <Text style={{ fontWeight: "bold" }}>Sign In</Text>
+        {!signingIn ? (
+          <Text>Already have an account? - </Text>
+        ) : (
+          <Text>Don't have an account yet?</Text>
+        )}
+        {!signingIn && <Text style={{ fontWeight: "bold" }}>Log In</Text>}
       </Text>
       <Pressable
-        style={[styles.button, { marginTop: 14 }]}
-        onPress={() => navigation.navigate("Home", { displayType: "default" })}
+        style={[styles.button, { marginTop: 14, backgroundColor: "#F7C1CD" }]}
+        onPress={() => {
+          if (!signingIn) {
+            setSigningIn(true);
+          } else {
+            // navigation.navigate("Home", { displayType: "default" });
+            setSigningIn(false);
+          }
+        }}
       >
-        <Text style={styles.buttonText}>Sign In</Text>
+        {!signingIn ? (
+          <Text style={styles.buttonText}>Log In</Text>
+        ) : (
+          <Text style={styles.buttonText}>Sign Up</Text>
+        )}
       </Pressable>
     </SafeAreaView>
   );

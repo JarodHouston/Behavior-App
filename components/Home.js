@@ -46,6 +46,7 @@ export default function Home({ navigation, route }) {
       venueDescription:
         "Held on the expansive lawns surrounding the iconic Griffith Observatory, this event offers breathtaking views of Los Angeles and the night sky. The event starts just after sunset, around 7:00 PM, providing a perfect blend of natural beauty and cosmic wonder.",
       image: require("./images/events/GriffithObservatory.png"),
+      tags: ["yoga", "outdoors", "group event"],
       registered: false,
       passed: false,
     },
@@ -60,6 +61,7 @@ export default function Home({ navigation, route }) {
       venueDescription:
         "Hosted at the serene Los Angeles County Arboretum and Botanic Garden, participants can connect with nature and find peace among the lush landscapes. The retreat runs from 8:00 AM to 4:00 PM.",
       image: require("./images/events/WellnessRetreat.png"),
+      tags: ["nature", "outdoors", "group event"],
       registered: false,
       passed: false,
     },
@@ -74,6 +76,7 @@ export default function Home({ navigation, route }) {
       venueDescription:
         "The festival takes place at the historic Egyptian Theatre in Hollywood, offering a classic cinema experience. Screenings and events are scheduled throughout the day and evening, providing flexible options for attendees.",
       image: require("./images/events/FilmFestival.png"),
+      tags: ["movie", "indie", "all day"],
       registered: true,
       passed: false,
     },
@@ -88,6 +91,7 @@ export default function Home({ navigation, route }) {
       venueDescription:
         "Taking place on the north side of Echo Park Lake, participants will enjoy a scenic view of the water and downtown LA skyline. The session begins at 6:00 AM, allowing yogis to enjoy the tranquil beauty of the park at dawn.",
       image: require("./images/events/EchoPark.png"),
+      tags: ["yoga", "outdoors", "nature"],
       registered: true,
       passed: false,
     },
@@ -102,6 +106,7 @@ export default function Home({ navigation, route }) {
       venueDescription:
         "This yoga gathering is located in Silver Lake Meadow, a spacious and grassy area known for its relaxed atmosphere. The event starts at 9:00 AM, making it an ideal morning activity that leaves the rest of the day open for exploration.",
       image: require("./images/events/Silverlake.png"),
+      tags: ["yoga", "outdoors", "park"],
       registered: false,
       passed: true,
     },
@@ -116,6 +121,7 @@ export default function Home({ navigation, route }) {
       venueDescription:
         "Held at The Getty Center's beautiful outdoor terrace, attendees can enjoy stunning views of Los Angeles while soaking in the soulful tunes. The event starts at 6:00 PM, just in time for a breathtaking sunset backdrop.",
       image: require("./images/events/SunsetJazz.png"),
+      tags: ["music", "outdoors", "nature"],
       registered: false,
       passed: false,
     },
@@ -130,6 +136,7 @@ export default function Home({ navigation, route }) {
       venueDescription:
         "Located at the Los Angeles Convention Center, this event spans multiple exhibition halls, providing ample space for demonstrations, networking, and hands-on experiences. The expo runs from 10:00 AM to 5:00 PM.",
       image: require("./images/events/TechExpo.png"),
+      tags: ["tech", "exhibit", "group event"],
       registered: true,
       passed: false,
     },
@@ -144,7 +151,8 @@ export default function Home({ navigation, route }) {
       venueDescription:
         "Set in Grand Park, this outdoor event offers a festive atmosphere with plenty of seating areas and live music stages. The carnival is open from 11:00 AM to 10:00 PM, providing a full day of gastronomic exploration.",
       image: require("./images/events/CulinaryCarnival.png"),
-      registered: false,
+      tags: ["food", "outdoors", "diversity"],
+      registered: true,
       passed: false,
     },
     {
@@ -158,6 +166,7 @@ export default function Home({ navigation, route }) {
       venueDescription:
         "The art walk begins in the Arts District and winds through various neighborhoods, showcasing the work of both renowned and underground artists. The walk starts at 3:00 PM and concludes with an after-party at a local gallery.",
       image: require("./images/events/UrbanArtWalk.png"),
+      tags: ["art", "outdoors", "party"],
       registered: false,
       passed: true,
     },
@@ -172,6 +181,22 @@ export default function Home({ navigation, route }) {
       venueDescription:
         "Hosted in the outdoor play area of the pet rescue center, this event not only provides a delightful yoga experience but also raises awareness and support for animal adoption. The session begins at 10:00 AM, offering a perfect blend of exercise, play, and philanthropy.",
       image: require("./images/events/PuppyYoga.jpeg"),
+      tags: ["animals", "outdoors", "yoga"],
+      registered: false,
+      passed: false,
+    },
+    {
+      id: 10,
+      eventTitle: "Cooking 101",
+      date: "Saturday, February 3",
+      time: "2 pm - 5 pm PST",
+      price: 3,
+      eventDescription:
+        "Looking to throw a fancy dinner party? Come join us as we teach you to make show-stopper meals with very low effort! You will be wowing all of your friends in no time after taking our Cooking 101 class. Learn to make a perfectly cooked ribeye roast in just one session!",
+      venueDescription:
+        "Tucked in a quaint neighborhood in West LA, the Adler features a large private venue equipped with a standard kitchen. You will get to enjoy the familiarity of an everyday kitchen to show that you can take the skills you learn home and whip up a great meal anytime you want. With small class sizes and plenty of space to operate, you will be right at home in this kitchen!",
+      image: require("./images/events/Cooking.jpeg"),
+      tags: ["food", "cooking", "group event"],
       registered: false,
       passed: false,
     },
@@ -207,15 +232,23 @@ export default function Home({ navigation, route }) {
   const reasonsForMissing = [
     {
       id: 1,
+      title: "Forgot",
     },
     {
       id: 2,
+      title: "Something came up",
     },
     {
       id: 3,
+      title: "Event was cancelled",
     },
     {
       id: 4,
+      title: "Decided not to go",
+    },
+    {
+      id: 5,
+      title: "Reason not available",
     },
   ];
 
@@ -538,7 +571,7 @@ export default function Home({ navigation, route }) {
             </View>
           )}
           {attendedEventPopup && (
-            <View style={popUpStyles.attendedEvent}>
+            <View style={[popUpStyles.attendedEvent, { top: 120 }]}>
               <Text
                 style={popUpStyles.closeButton}
                 onPress={() => setAttendedEventPopup(false)}
@@ -576,25 +609,70 @@ export default function Home({ navigation, route }) {
               </View>
               <View
                 style={{
-                  marginTop: 30,
+                  marginTop: 24,
                   justifyContent: "center",
                   alignItems: "center",
                 }}
               >
                 <Text style={{ fontSize: 16, fontWeight: "bold" }}>
-                  Rate this event
+                  How was it?
                 </Text>
                 <View
                   style={{
-                    backgroundColor: "#AFB1B6",
-                    width: 42,
-                    height: 42,
-                    borderRadius: 50,
                     marginTop: 22,
+                    display: "flex",
+                    flexDirection: "row",
+                    gap: 6,
                   }}
-                ></View>
+                >
+                  <View
+                    style={{
+                      alignItems: "center",
+                      width: 90,
+                      gap: 6,
+                    }}
+                  >
+                    <Pressable
+                      style={{
+                        backgroundColor: "#98ccb2",
+                        width: 50,
+                        height: 50,
+                        borderRadius: 50,
+                      }}
+                    ></Pressable>
+                    <Text>I liked it!</Text>
+                  </View>
+                  <View style={{ alignItems: "center", width: 90, gap: 6 }}>
+                    <Pressable
+                      style={{
+                        backgroundColor: "#f8e1a4",
+                        width: 50,
+                        height: 50,
+                        borderRadius: 50,
+                      }}
+                    ></Pressable>
+                    <Text>It was fine</Text>
+                  </View>
+                  <View
+                    style={{
+                      alignItems: "center",
+                      width: 90,
+                      gap: 6,
+                    }}
+                  >
+                    <Pressable
+                      style={{
+                        backgroundColor: "#f0b4b4",
+                        width: 50,
+                        height: 50,
+                        borderRadius: 50,
+                      }}
+                    ></Pressable>
+                    <Text>I didn't like it</Text>
+                  </View>
+                </View>
               </View>
-              <View style={{ width: "82%", marginTop: 36 }}>
+              <View style={{ width: "82%", marginTop: 22 }}>
                 <Text
                   style={{
                     fontSize: 16,
@@ -608,7 +686,7 @@ export default function Home({ navigation, route }) {
                   style={[
                     popUpStyles.eventDetails,
                     {
-                      height: 140,
+                      height: 130,
                       justifyContent: "flex-start",
                       paddingTop: 7,
                     },
@@ -718,7 +796,15 @@ export default function Home({ navigation, route }) {
               <View style={popUpStyles.reasonContainer}>
                 {reasonsForMissing.map((reason) => (
                   <View key={reason.id} style={popUpStyles.reason}>
-                    <Text style={{ fontSize: 16 }}>Reason</Text>
+                    <Text
+                      style={{
+                        fontSize: 16,
+                        width: "75%",
+                        textAlign: "center",
+                      }}
+                    >
+                      {reason.title}
+                    </Text>
                   </View>
                 ))}
               </View>
@@ -783,7 +869,7 @@ export default function Home({ navigation, route }) {
                           style={{
                             display: "flex",
                             flexDirection: "row",
-                            justifyContent: "center",
+                            justifyContent: "flex-start",
                             alignItems: "center",
                             gap: 10,
                             backgroundColor: "rgba(255, 255, 255, 0.75)",
@@ -792,30 +878,43 @@ export default function Home({ navigation, route }) {
                             paddingRight: 16,
                             left: -4,
                             borderRadius: 15,
+                            minWidth: 200,
                           }}
                         >
-                          <View
+                          {/* <View
                             style={{
-                              width: 29,
-                              height: 29,
+                              width: 42,
+                              height: 42,
                               borderColor: "#AFB1B6",
                               borderWidth: 1,
                               borderRadius: 50,
                             }}
-                          ></View>
+                          ></View> */}
+                          <Image
+                            style={{
+                              width: 42,
+                              height: 42,
+                              borderColor: "#AFB1B6",
+                              borderWidth: 1,
+                              borderRadius: 50,
+                            }}
+                            source={require("./images/profiles/Lincoln.png")}
+                          />
                           <View
                             style={{
                               height: 36,
                               justifyContent: "space-between",
                             }}
                           >
-                            <Text style={{ fontSize: 13 }}>
-                              By Outdoorsy Outdoorsman
-                            </Text>
+                            <Text style={{ fontSize: 13 }}>By Lincoln</Text>
                             <Text style={{ fontSize: 13 }}>301 Followers</Text>
                           </View>
                         </View>
                         <Pressable style={eventStyles.followButton}>
+                          <Image
+                            style={{ width: 17, height: 17 }}
+                            source={require("./icons/add.png")}
+                          />
                           <Text>Follow</Text>
                         </Pressable>
                       </View>
@@ -852,7 +951,10 @@ export default function Home({ navigation, route }) {
                             marginTop: 16,
                             textDecorationLine: "underline",
                           }}
-                          onPress={() => setModifyPopup(true)}
+                          onPress={() => {
+                            setModifyPopup(true);
+                            selectActivity(ev.id);
+                          }}
                         >
                           Modify your registration
                         </Text>
@@ -862,12 +964,21 @@ export default function Home({ navigation, route }) {
                   {!activitySelected && (
                     <View style={styles.registeredFriends}>
                       <View style={{ flexDirection: "row", gap: -10 }}>
-                        <View style={[styles.friendPic, { zIndex: 3 }]}></View>
-                        <View style={[styles.friendPic, { zIndex: 2 }]}></View>
-                        <View style={[styles.friendPic, { zIndex: 1 }]}></View>
+                        <Image
+                          style={[styles.friendPic, { zIndex: 3 }]}
+                          source={require("./images/profiles/Giulia.png")}
+                        />
+                        <Image
+                          style={[styles.friendPic, { zIndex: 2 }]}
+                          source={require("./images/profiles/Kevin.png")}
+                        />
+                        <Image
+                          style={[styles.friendPic, { zIndex: 1 }]}
+                          source={require("./images/profiles/Richard.png")}
+                        />
                       </View>
                       <Text style={{ fontSize: 12 }}>
-                        Jane Doe and 5 others are registered
+                        Giulia and 3 others are registered
                       </Text>
                     </View>
                   )}
@@ -887,7 +998,12 @@ export default function Home({ navigation, route }) {
               </Text>
             </View>
             <View style={eventStyles.tagContainer}>
-              <View style={eventStyles.tag}>
+              {events.at(selectedId).tags.map((tag) => (
+                <View key={tag} style={eventStyles.tag}>
+                  <Text>{tag}</Text>
+                </View>
+              ))}
+              {/* <View style={eventStyles.tag}>
                 <Text>Tag</Text>
               </View>
               <View style={eventStyles.tag}>
@@ -898,7 +1014,7 @@ export default function Home({ navigation, route }) {
               </View>
               <View style={eventStyles.tag}>
                 <Text>Tag</Text>
-              </View>
+              </View> */}
             </View>
             <View
               style={[
@@ -1036,7 +1152,7 @@ const styles = StyleSheet.create({
   registeredFriends: {
     height: 62,
     zIndex: -1,
-    backgroundColor: "#FDF2F5",
+    backgroundColor: "#FFEAF0",
     marginBottom: 20,
     display: "flex",
     flexDirection: "row",
@@ -1050,10 +1166,9 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.05,
   },
   friendPic: {
-    width: 25,
-    height: 25,
-    backgroundColor: "#E8E8E8",
-    borderColor: "#838282",
+    width: 30,
+    height: 30,
+    borderColor: "#794436",
     borderWidth: 1,
     borderRadius: 50,
   },
@@ -1086,12 +1201,13 @@ const eventStyles = StyleSheet.create({
     margin: 20,
   },
   tag: {
-    width: 65,
     height: 32,
-    backgroundColor: "#D9D9D9",
+    backgroundColor: "#F7C1CD",
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 8,
+    paddingLeft: 14,
+    paddingRight: 14,
   },
   similarEventContainer: {
     height: "100%",
@@ -1130,10 +1246,15 @@ const eventStyles = StyleSheet.create({
   },
   followButton: {
     backgroundColor: "#F7C1CD",
-    width: 99,
+    left: 6,
+    width: 108,
     height: 32,
+    display: "flex",
+    flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
+    gap: 8,
+    paddingRight: 4,
     borderRadius: 5,
   },
 });
@@ -1218,7 +1339,7 @@ const popUpStyles = StyleSheet.create({
     // height: 713,
     backgroundColor: "white",
     position: "absolute",
-    zIndex: 2,
+    zIndex: 5,
     borderRadius: 8,
     justifyContent: "center",
     alignItems: "center",
@@ -1246,7 +1367,7 @@ const popUpStyles = StyleSheet.create({
   reason: {
     width: 112,
     height: 63,
-    backgroundColor: "#D9D9D9",
+    backgroundColor: "#F7C1CD",
     borderRadius: 8,
     justifyContent: "center",
     alignItems: "center",

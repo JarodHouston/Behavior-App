@@ -25,7 +25,7 @@ export default function Survey3({ navigation }) {
           <View style={{ width: 22, height: 22 }}>
             <Image
               style={{
-                left: 30,
+                left: 24,
                 zIndex: 3,
                 width: 22,
                 height: 22,
@@ -34,7 +34,11 @@ export default function Survey3({ navigation }) {
             />
           </View>
         </TouchableOpacity>
-        <Text style={{ textAlign: "center", padding: 20 }}>Progress Bar</Text>
+        <View style={{ padding: 20 }}>
+          <View style={styles.progressBar}>
+            <View style={styles.progressFill}></View>
+          </View>
+        </View>
       </View>
       <View style={styles.container}>
         <Text style={{ fontSize: 24, marginBottom: 14 }}>Almost Done!</Text>
@@ -129,5 +133,18 @@ const styles = StyleSheet.create({
     // shadowColor: "black",
     // shadowOffset: { width: 1, height: 3 },
     // shadowOpacity: 0.3,
+  },
+  progressBar: {
+    width: 302,
+    height: 8,
+    backgroundColor: "#FFEAF0",
+    borderRadius: 50,
+    marginLeft: 40,
+  },
+  progressFill: {
+    width: 160,
+    height: 8,
+    backgroundColor: "#C35D44",
+    borderRadius: 50,
   },
 });
