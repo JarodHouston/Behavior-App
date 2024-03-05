@@ -29,6 +29,8 @@ export default function Home({ navigation, route }) {
   const [modifyPopup, setModifyPopup] = useState(false);
   const [attendedEventPopup, setAttendedEventPopup] = useState(false);
   const [missedEventPopup, setMissedEventPopup] = useState(false);
+  const [confirmCancelPopup, setConfirmCancelPopup] = useState(false);
+  const [confirmedCancelPopup, setConfirmedCancelPopup] = useState(false);
 
   const [registered1, setRegistered1] = useState(false);
   const [registered2, setRegistered2] = useState(false);
@@ -259,6 +261,7 @@ export default function Home({ navigation, route }) {
     setModifyPopup(false);
     setAttendedEventPopup(false);
     setMissedEventPopup(false);
+    setConfirmCancelPopup(false);
     setReview("");
     setTicketValue(1);
   }
@@ -300,7 +303,9 @@ export default function Home({ navigation, route }) {
         confirmationPopup ||
         modifyPopup ||
         attendedEventPopup ||
-        missedEventPopup) && (
+        missedEventPopup ||
+        confirmCancelPopup ||
+        confirmedCancelPopup) && (
         <View
           style={[
             {
@@ -562,10 +567,137 @@ export default function Home({ navigation, route }) {
               </Text>
               <Pressable
                 style={popUpStyles.confirmButton}
-                onPress={() => setModifyPopup(false)}
+                onPress={() => {
+                  setModifyPopup(false);
+                  setConfirmCancelPopup(true);
+                }}
               >
                 <Text style={{ fontSize: 17, color: "white" }}>
                   Cancel your registration
+                </Text>
+              </Pressable>
+            </View>
+          )}
+          {confirmCancelPopup && (
+            <View style={popUpStyles.confirmCancelContainer}>
+              <Text
+                style={popUpStyles.closeButton}
+                onPress={() => setConfirmCancelPopup(false)}
+              >
+                X
+              </Text>
+              <Text
+                style={{ fontSize: 20, textAlign: "center", marginTop: 40 }}
+              >
+                {events.at(selectedId).eventTitle}
+              </Text>
+              <View
+                style={{
+                  justifyContent: "center",
+                  alignItems: "center",
+                  marginTop: 10,
+                }}
+              >
+                <Text style={{ fontSize: 13 }}>
+                  {events.at(selectedId).date}
+                </Text>
+                <Text style={{ fontSize: 13 }}>
+                  {events.at(selectedId).time}
+                </Text>
+              </View>
+              <Text
+                style={{
+                  fontSize: 22,
+                  fontWeight: "bold",
+                  marginTop: 20,
+                  textAlign: "center",
+                  width: "80%",
+                }}
+              >
+                Are you sure you want to cancel your registration?
+              </Text>
+              <View style={{ marginTop: 50, marginBottom: 36, gap: 16 }}>
+                <Pressable
+                  style={[
+                    popUpStyles.confirmCancelButton,
+                    { backgroundColor: "#F7C1CD" },
+                  ]}
+                  onPress={() => setConfirmCancelPopup(false)}
+                >
+                  <Text style={{ fontSize: 16, textAlign: "center" }}>
+                    No, keep my registration!
+                  </Text>
+                </Pressable>
+                <Pressable
+                  style={[
+                    popUpStyles.confirmCancelButton,
+                    { backgroundColor: "#F88E73" },
+                  ]}
+                  onPress={() => {
+                    setConfirmCancelPopup(false);
+                    setConfirmedCancelPopup(true);
+                  }}
+                >
+                  <Text
+                    style={{
+                      fontSize: 16,
+                      textAlign: "center",
+                      color: "white",
+                    }}
+                  >
+                    Yes, please cancel it!
+                  </Text>
+                </Pressable>
+              </View>
+            </View>
+          )}
+          {confirmedCancelPopup && (
+            <View style={popUpStyles.confirmCancelContainer}>
+              <Text
+                style={[popUpStyles.closeButton, { top: 10 }]}
+                onPress={() => setConfirmedCancelPopup(false)}
+              >
+                X
+              </Text>
+              <Text
+                style={{
+                  fontWeight: "bold",
+                  fontSize: 22,
+                  width: "80%",
+                  textAlign: "center",
+                  marginTop: 36,
+                }}
+              >
+                Your registration has been canceled
+              </Text>
+              <Text
+                style={{
+                  marginTop: 40,
+                  fontSize: 17,
+                  textAlign: "center",
+                  width: "70%",
+                  lineHeight: 24,
+                }}
+              >
+                Check out other events that might interest you!
+              </Text>
+              <Pressable
+                style={[popUpStyles.confirmButton, { marginTop: 60 }]}
+                onPress={() => {
+                  setConfirmedCancelPopup(false);
+                  navigation.navigate("Home", {
+                    displayType: "default",
+                  });
+                  resetHome();
+                }}
+              >
+                <Text
+                  style={{
+                    fontSize: 17,
+                    color: "white",
+                  }}
+                >
+                  Browse more events
                 </Text>
               </Pressable>
             </View>
@@ -701,40 +833,12 @@ export default function Home({ navigation, route }) {
                     textAlignVertical="top"
                   />
                 </View>
-                <View
-                  style={[
-                    eventStyles.tagContainer,
-                    {
-                      marginLeft: 0,
-                      width: "100%",
-                      gap: 3,
-                      justifyContent: "space-between",
-                    },
-                  ]}
-                >
-                  <View
-                    style={[eventStyles.tag, { backgroundColor: "#8C8C8C" }]}
-                  >
-                    <Text>Tag</Text>
-                  </View>
-                  <View
-                    style={[eventStyles.tag, { backgroundColor: "#8C8C8C" }]}
-                  >
-                    <Text>Tag</Text>
-                  </View>
-                  <View style={eventStyles.tag}>
-                    <Text>Tag</Text>
-                  </View>
-                  <View style={eventStyles.tag}>
-                    <Text>Tag</Text>
-                  </View>
-                </View>
               </View>
               <Text
                 style={{
                   fontSize: 14,
                   textDecorationLine: "underline",
-                  marginTop: 12,
+                  marginTop: 32,
                   marginBottom: 20,
                 }}
                 onPress={() => {
@@ -881,15 +985,6 @@ export default function Home({ navigation, route }) {
                             minWidth: 200,
                           }}
                         >
-                          {/* <View
-                            style={{
-                              width: 42,
-                              height: 42,
-                              borderColor: "#AFB1B6",
-                              borderWidth: 1,
-                              borderRadius: 50,
-                            }}
-                          ></View> */}
                           <Image
                             style={{
                               width: 42,
@@ -1003,18 +1098,6 @@ export default function Home({ navigation, route }) {
                   <Text>{tag}</Text>
                 </View>
               ))}
-              {/* <View style={eventStyles.tag}>
-                <Text>Tag</Text>
-              </View>
-              <View style={eventStyles.tag}>
-                <Text>Tag</Text>
-              </View>
-              <View style={eventStyles.tag}>
-                <Text>Tag</Text>
-              </View>
-              <View style={eventStyles.tag}>
-                <Text>Tag</Text>
-              </View> */}
             </View>
             <View
               style={[
@@ -1371,5 +1454,21 @@ const popUpStyles = StyleSheet.create({
     borderRadius: 8,
     justifyContent: "center",
     alignItems: "center",
+  },
+  confirmCancelContainer: {
+    width: 324,
+    backgroundColor: "white",
+    position: "absolute",
+    zIndex: 2,
+    borderRadius: 8,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  confirmCancelButton: {
+    paddingRight: 16,
+    paddingLeft: 16,
+    paddingTop: 10,
+    paddingBottom: 10,
+    borderRadius: 8,
   },
 });

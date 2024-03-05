@@ -194,19 +194,27 @@ export default function Profile({ navigation, route }) {
   const recommendedFriends = [
     {
       id: 1,
-      name: "Person",
+      name: "Person 1",
+      image: require("./icons/boy.png"),
+      activity: "Running",
     },
     {
       id: 2,
-      name: "Person",
+      name: "Person 2",
+      image: require("./icons/woman.png"),
+      activity: "Hiking",
     },
     {
       id: 3,
-      name: "Person",
+      name: "Person 3",
+      image: require("./icons/girl.png"),
+      activity: "Yoga Instructor",
     },
     {
       id: 4,
-      name: "Person",
+      name: "Person 4",
+      image: require("./icons/man.png"),
+      activity: "Water Sports",
     },
   ];
 
@@ -471,14 +479,29 @@ export default function Profile({ navigation, route }) {
                   >
                     <View>
                       <View style={mainStyles.badge}>
-                        <View style={mainStyles.badgeTitle}>
-                          <Text style={{ fontSize: 15, color: "white" }}>
-                            Tag
+                        <Image
+                          style={[
+                            mainStyles.badgeIcon,
+                            { borderColor: "#F7A38E" },
+                          ]}
+                          source={item.image}
+                        />
+                        <View
+                          style={[
+                            mainStyles.badgeTitle,
+                            { paddingLeft: 5, paddingRight: 5 },
+                          ]}
+                        >
+                          <Text
+                            numberOfLines={1}
+                            style={{ fontSize: 15, color: "white" }}
+                          >
+                            {item.activity}
                           </Text>
                         </View>
                       </View>
                       <Text style={{ marginTop: 12, textAlign: "center" }}>
-                        Person
+                        {item.name}
                       </Text>
                     </View>
                   </TouchableOpacity>
@@ -498,6 +521,10 @@ export default function Profile({ navigation, route }) {
                 <Text style={{ fontSize: 12, color: "#61646B" }}>
                   Filter by
                 </Text>
+                <Image
+                  style={{ width: 16, height: 16, tintColor: "#61646B" }}
+                  source={require("./icons/down-arrow.png")}
+                />
               </View>
             </View>
             <View style={[mainStyles.friendContainer, { marginTop: 26 }]}>
@@ -508,13 +535,27 @@ export default function Profile({ navigation, route }) {
                     activeOpacity={1}
                     key={friend.id}
                   >
-                    <View style={mainStyles.friendCard}>
-                      <View style={mainStyles.friendProfile}></View>
+                    <View style={[mainStyles.friendCard, {}]}>
+                      {/* <View style={mainStyles.friendProfile}></View> */}
+                      <Image
+                        style={mainStyles.friendProfile}
+                        source={friend.image}
+                      />
                       <View style={{ justifyContent: "center" }}>
-                        <Text>{friend.name}</Text>
-                        <View style={{ flexDirection: "row", gap: 5 }}>
-                          <Text>Activity</Text>
-                          <Text>Expert</Text>
+                        <Text style={{ fontWeight: "bold" }}>
+                          {friend.name}
+                        </Text>
+                        <View
+                          style={{
+                            // flexDirection: "row",
+                            gap: 5,
+                            width: 120,
+                            height: 20,
+                          }}
+                        >
+                          <Text numberOfLines={1} style={{ flex: 1 }}>
+                            {friend.activity}
+                          </Text>
                         </View>
                       </View>
                     </View>
@@ -526,6 +567,10 @@ export default function Profile({ navigation, route }) {
             <View>
               <Text style={editStyles.sectionTitle}>Find Friends</Text>
               <View style={friendStyles.searchBar}>
+                <Image
+                  style={{ width: 20, height: 20, tintColor: "#61646B" }}
+                  source={require("./icons/search-interface-symbol.png")}
+                />
                 <Text style={{ fontSize: 16, color: "#61646B" }}>Search</Text>
               </View>
               <View style={[mainStyles.friendContainer, { marginTop: 26 }]}>
@@ -537,12 +582,14 @@ export default function Profile({ navigation, route }) {
                       key={friend.id}
                     >
                       <View key={friend.id} style={mainStyles.friendCard}>
-                        <View style={mainStyles.friendProfile}></View>
+                        <Image
+                          style={mainStyles.friendProfile}
+                          source={friend.image}
+                        />
                         <View style={{ justifyContent: "center" }}>
                           <Text>{friend.name}</Text>
                           <View style={{ flexDirection: "row", gap: 5 }}>
-                            <Text>Activity</Text>
-                            <Text>Expert</Text>
+                            <Text>{friend.activity}</Text>
                           </View>
                         </View>
                       </View>
@@ -730,21 +777,28 @@ const friendStyles = StyleSheet.create({
     marginTop: 38,
     marginRight: 30,
     paddingLeft: 12,
+    paddingRight: 14,
     borderColor: "#AFB1B6",
     borderWidth: 1,
     borderRadius: 8,
-    justifyContent: "center",
-    alignItems: "flex-start",
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   searchBar: {
-    width: 308,
+    width: 316,
     height: 42,
     borderColor: "#AFB1B6",
     borderWidth: 1,
     borderRadius: 8,
-    justifyContent: "center",
+    justifyContent: "flex-start",
+    alignItems: "center",
     marginLeft: 30,
     marginTop: 20,
-    paddingLeft: 20,
+    paddingLeft: 12,
+    display: "flex",
+    flexDirection: "row",
+    gap: 10,
   },
 });
