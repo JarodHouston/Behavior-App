@@ -31,9 +31,6 @@ export default function SignUpPage({ navigation }) {
             <TextInput
               style={inputStyles.input}
               onChangeText={(text) => setEmail(text)}
-              onSubmitEditing={() => {
-                alert(`Your message is ${email}`);
-              }}
               placeholder="Input Text"
               value={email}
             />
@@ -44,9 +41,6 @@ export default function SignUpPage({ navigation }) {
           <TextInput
             style={inputStyles.input}
             onChangeText={(text) => setUsername(text)}
-            onSubmitEditing={() => {
-              alert(`Your message is ${username}`);
-            }}
             placeholder="Input Text"
             value={username}
           />
@@ -56,9 +50,6 @@ export default function SignUpPage({ navigation }) {
           <TextInput
             style={inputStyles.input}
             onChangeText={(text) => setPassword(text)}
-            onSubmitEditing={() => {
-              alert(`Your message is ${password}`);
-            }}
             placeholder="Input Text"
             value={password}
           />
